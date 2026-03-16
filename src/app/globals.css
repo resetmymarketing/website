@@ -1,0 +1,302 @@
+@import 'tailwindcss';
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* === ECOTRUST DESIGN TOKENS === */
+
+:root {
+  /* Brand: Steel Blue */
+  --brand-50: #f0f5fa;
+  --brand-100: #d9e6f2;
+  --brand-200: #b3cde5;
+  --brand-300: #8db4d8;
+  --brand-400: #729ECE;
+  --brand-500: #4a7eb5;
+  --brand-600: #2d6295;
+  --brand-700: #1F4E79;
+  --brand-800: #193e60;
+  --brand-900: #112d47;
+
+  /* Sage: Vibrant Greens */
+  --sage-50: #f0f9f0;
+  --sage-100: #dcefd9;
+  --sage-200: #b8dfb3;
+  --sage-300: #8ecc87;
+  --sage-400: #66bb6a;
+  --sage-500: #4CAF50;
+  --sage-600: #43a047;
+  --sage-700: #379F40;
+  --sage-800: #2e7d32;
+  --sage-900: #1b5e20;
+
+  /* Warm: Cool Neutrals */
+  --warm-50: #FCFDFE;
+  --warm-100: #f5f7fa;
+  --warm-200: #e4e9ef;
+  --warm-300: #cdd5df;
+  --warm-400: #9aa5b4;
+  --warm-500: #6b7a8d;
+  --warm-600: #4e5d6e;
+  --warm-700: #374758;
+  --warm-800: #263545;
+  --warm-900: #1a2633;
+
+  /* Orange Accent */
+  --accent-orange: #FFA726;
+  --accent-orange-hover: #FB8C00;
+  --accent-orange-light: #FFE0B2;
+
+  /* Semantic - mapped to EcoTrust palette */
+  --background: #FCFDFE;
+  --foreground: #193e60;
+  --muted: #f5f7fa;
+  --muted-foreground: #4e5d6e;
+  --border: #9aa5b4;
+  --input: #9aa5b4;
+  --input-border: #9aa5b4;
+  --ring: #729ECE;
+
+  /* Primary = Green CTA */
+  --primary: #4CAF50;
+  --primary-foreground: #000000;
+  /* Secondary = cool neutral */
+  --secondary: #f5f7fa;
+  --secondary-foreground: #193e60;
+  /* Accent = light steel blue */
+  --accent: #f0f5fa;
+  --accent-foreground: #112d47;
+  /* Cards */
+  --card: #ffffff;
+  --card-foreground: #193e60;
+  --popover: #ffffff;
+  --popover-foreground: #193e60;
+  /* Destructive */
+  --destructive: #d32f2f;
+  /* Radius */
+  --radius: 0.625rem;
+
+  /* Status */
+  --status-ontrack: #4CAF50;
+  --status-upcoming: #FFA726;
+  --status-overdue: #d32f2f;
+  --status-complete: #2e7d32;
+
+  /* Sidebar */
+  --sidebar: #FCFDFE;
+  --sidebar-foreground: #193e60;
+  --sidebar-primary: #1F4E79;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f0f5fa;
+  --sidebar-accent-foreground: #193e60;
+  --sidebar-border: #e4e9ef;
+  --sidebar-ring: #729ECE;
+
+  /* Charts - EcoTrust derived */
+  --chart-1: #1F4E79;
+  --chart-2: #4CAF50;
+  --chart-3: #729ECE;
+  --chart-4: #FFA726;
+  --chart-5: #379F40;
+}
+
+/* === DARK MODE === */
+
+.dark {
+  --brand-50: #112d47;
+  --brand-100: #193e60;
+  --brand-200: #1F4E79;
+  --brand-300: #2d6295;
+  --brand-400: #4a7eb5;
+  --brand-500: #729ECE;
+  --brand-600: #94BDE4;
+  --brand-700: #b3d1ee;
+  --brand-800: #d9e6f2;
+  --brand-900: #f0f5fa;
+
+  --sage-50: #1b5e20;
+  --sage-100: #2e7d32;
+  --sage-200: #379F40;
+  --sage-300: #43a047;
+  --sage-400: #4CAF50;
+  --sage-500: #72D17A;
+  --sage-600: #8ecc87;
+  --sage-700: #b8dfb3;
+  --sage-800: #dcefd9;
+  --sage-900: #f0f9f0;
+
+  --warm-50: #1a2633;
+  --warm-100: #263545;
+  --warm-200: #374758;
+  --warm-300: #4e5d6e;
+  --warm-400: #6b7a8d;
+  --warm-500: #9aa5b4;
+  --warm-600: #cdd5df;
+  --warm-700: #e4e9ef;
+  --warm-800: #f5f7fa;
+  --warm-900: #FCFDFE;
+
+  --accent-orange: #FFB74D;
+  --accent-orange-hover: #FFA726;
+  --accent-orange-light: #4a3520;
+
+  --background: #1F4E79;
+  --foreground: #FCFDFE;
+  --muted: #193e60;
+  --muted-foreground: #94BDE4;
+  --border: #2d6295;
+  --input: #2d6295;
+  --input-border: #2d6295;
+  --ring: #94BDE4;
+
+  --primary: #72D17A;
+  --primary-foreground: #000000;
+  --secondary: #193e60;
+  --secondary-foreground: #FCFDFE;
+  --accent: #193e60;
+  --accent-foreground: #f0f5fa;
+  --card: #193e60;
+  --card-foreground: #FCFDFE;
+  --popover: #193e60;
+  --popover-foreground: #FCFDFE;
+  --destructive: #ef5350;
+
+  --status-ontrack: #72D17A;
+  --status-upcoming: #FFB74D;
+  --status-overdue: #ef5350;
+  --status-complete: #8ecc87;
+
+  --sidebar: #112d47;
+  --sidebar-foreground: #FCFDFE;
+  --sidebar-primary: #94BDE4;
+  --sidebar-primary-foreground: #112d47;
+  --sidebar-accent: #193e60;
+  --sidebar-accent-foreground: #FCFDFE;
+  --sidebar-border: #1F4E79;
+  --sidebar-ring: #94BDE4;
+
+  --chart-1: #94BDE4;
+  --chart-2: #72D17A;
+  --chart-3: #729ECE;
+  --chart-4: #FFB74D;
+  --chart-5: #8ecc87;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+
+  --color-sage-50: var(--sage-50);
+  --color-sage-100: var(--sage-100);
+  --color-sage-200: var(--sage-200);
+  --color-sage-300: var(--sage-300);
+  --color-sage-400: var(--sage-400);
+  --color-sage-500: var(--sage-500);
+  --color-sage-600: var(--sage-600);
+  --color-sage-700: var(--sage-700);
+  --color-sage-800: var(--sage-800);
+  --color-sage-900: var(--sage-900);
+
+  --color-warm-50: var(--warm-50);
+  --color-warm-100: var(--warm-100);
+  --color-warm-200: var(--warm-200);
+  --color-warm-300: var(--warm-300);
+  --color-warm-400: var(--warm-400);
+  --color-warm-500: var(--warm-500);
+  --color-warm-600: var(--warm-600);
+  --color-warm-700: var(--warm-700);
+  --color-warm-800: var(--warm-800);
+  --color-warm-900: var(--warm-900);
+
+  --color-accent-orange: var(--accent-orange);
+  --color-accent-orange-hover: var(--accent-orange-hover);
+  --color-accent-orange-light: var(--accent-orange-light);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-input: var(--input);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+body {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* === FOCUS STYLES === */
+
+*:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* === REDUCED MOTION === */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
