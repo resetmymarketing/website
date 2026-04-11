@@ -51,7 +51,7 @@ export function ConciergeShell({
   }, [handleKeyDown]);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-white dark:bg-brand-950">
+    <div className="fixed inset-0 z-50 flex flex-col bg-white">
       {/* Progress dots */}
       <div className="flex-none px-4 pt-6 pb-2">
         <ConciergeProgress currentScreen={currentScreen} />
@@ -66,7 +66,7 @@ export function ConciergeShell({
           <button
             type="button"
             onClick={onBack}
-            className="text-sm text-warm-500 underline-offset-2 hover:text-warm-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2 dark:text-warm-400 dark:hover:text-warm-200"
+            className="text-sm text-warm-500 underline-offset-2 hover:text-warm-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2:text-warm-200"
           >
             Back
           </button>

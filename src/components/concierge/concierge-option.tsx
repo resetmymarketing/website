@@ -24,20 +24,20 @@ export function ConciergeOption({ option, selected, onSelect }: ConciergeOptionP
       aria-checked={selected}
       className={`w-full rounded-xl border-2 px-5 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2 ${
         selected
-          ? 'border-sage-500 bg-sage-50 dark:border-sage-400 dark:bg-sage-950'
-          : 'border-brand-200 bg-white hover:border-brand-300 hover:bg-brand-50 dark:border-brand-700 dark:bg-brand-900 dark:hover:border-brand-600 dark:hover:bg-brand-800'
+          ? 'border-sage-500 bg-sage-50'
+          : 'border-brand-200 bg-white hover:border-brand-300 hover:bg-brand-50:border-brand-600:bg-brand-800'
       }`}
     >
       <span
         className={`block text-base font-semibold ${
           selected
-            ? 'text-sage-700 dark:text-sage-300'
-            : 'text-brand-800 dark:text-brand-100'
+            ? 'text-sage-700'
+            : 'text-brand-800'
         }`}
       >
         {option.label}
       </span>
-      <span className="mt-1 block text-sm text-warm-600 dark:text-warm-400">
+      <span className="mt-1 block text-sm text-warm-600">
         {option.description}
       </span>
     </motion.button>

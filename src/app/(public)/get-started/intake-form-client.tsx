@@ -77,10 +77,10 @@ function SectionHeader({ number, title, description }: { number: string; title: 
         <span className="text-3xl font-bold text-brand-200">
           {number}
         </span>
-        <h2 className="text-xl font-bold text-brand-800 dark:text-brand-100">{title}</h2>
+        <h2 className="text-xl font-bold text-brand-800">{title}</h2>
       </div>
-      <p className="mt-1 text-sm text-warm-800 dark:text-warm-300">{description}</p>
-      <div className="mt-4 h-px bg-brand-200 dark:bg-brand-700" />
+      <p className="mt-1 text-sm text-warm-800">{description}</p>
+      <div className="mt-4 h-px bg-brand-200" />
     </div>
   );
 }
@@ -88,15 +88,15 @@ function SectionHeader({ number, title, description }: { number: string; title: 
 function SectionDivider({ title, note }: { title: string; note?: string }) {
   return (
     <div className="pt-8 pb-2">
-      <h3 className="text-lg font-semibold text-brand-800 dark:text-brand-100">{title}</h3>
-      {note && <p className="mt-1 text-sm text-warm-600 dark:text-warm-400">{note}</p>}
-      <div className="mt-3 h-px bg-brand-200 dark:bg-brand-700" />
+      <h3 className="text-lg font-semibold text-brand-800">{title}</h3>
+      {note && <p className="mt-1 text-sm text-warm-600">{note}</p>}
+      <div className="mt-3 h-px bg-brand-200" />
     </div>
   );
 }
 
 function HelperText({ children }: { children: React.ReactNode }) {
-  return <p className="text-xs text-warm-600 dark:text-warm-400">{children}</p>;
+  return <p className="text-xs text-warm-600">{children}</p>;
 }
 
 function RadioGroup({
@@ -107,7 +107,7 @@ function RadioGroup({
 }) {
   return (
     <fieldset className="space-y-2">
-      <legend className="text-sm font-medium text-brand-800 dark:text-brand-100">
+      <legend className="text-sm font-medium text-brand-800">
         {label}{required && <span className="text-red-500 ml-0.5">*</span>}
       </legend>
       <div className="space-y-1.5">
@@ -121,7 +121,7 @@ function RadioGroup({
               onChange={() => onChange(opt.value)}
               className="mt-0.5 accent-brand-600"
             />
-            <span className="text-sm text-warm-900 dark:text-warm-200">{opt.label}</span>
+            <span className="text-sm text-warm-900">{opt.label}</span>
           </label>
         ))}
       </div>
@@ -141,7 +141,7 @@ function CheckboxGroup({
   }
   return (
     <fieldset className="space-y-2">
-      <legend className="text-sm font-medium text-brand-800 dark:text-brand-100">
+      <legend className="text-sm font-medium text-brand-800">
         {label}{required && <span className="text-red-500 ml-0.5">*</span>}
       </legend>
       {helperText && <HelperText>{helperText}</HelperText>}
@@ -154,7 +154,7 @@ function CheckboxGroup({
               onChange={() => toggle(opt.value)}
               className="mt-0.5 accent-brand-600"
             />
-            <span className="text-sm text-warm-900 dark:text-warm-200">{opt.label}</span>
+            <span className="text-sm text-warm-900">{opt.label}</span>
           </label>
         ))}
       </div>
@@ -357,11 +357,11 @@ export function IntakeFormClient() {
   if (formState.status === 'success') {
     return (
       <div className="py-20 text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-sage-100 dark:bg-sage-900">
-          <Send className="h-7 w-7 text-sage-600 dark:text-sage-300" />
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-sage-100">
+          <Send className="h-7 w-7 text-sage-600" />
         </div>
-        <h2 className="mt-6 text-3xl font-bold text-brand-800 dark:text-brand-100">Consultation received.</h2>
-        <p className="mt-3 text-warm-800 dark:text-warm-300 max-w-md mx-auto">
+        <h2 className="mt-6 text-3xl font-bold text-brand-800">Consultation received.</h2>
+        <p className="mt-3 text-warm-800 max-w-md mx-auto">
           Thank you for taking the time to fill this out. I will review everything and be in touch
           within one to two business days to discuss next steps.
         </p>
@@ -496,7 +496,7 @@ export function IntakeFormClient() {
                     ]}
                     onChangeItem={handleConfirmationChange}
                   />
-                  <p id="concierge-change-note" className="text-xs text-warm-500 dark:text-warm-400">
+                  <p id="concierge-change-note" className="text-xs text-warm-500">
                     To change these answers, go back to the concierge and start again.
                   </p>
 
@@ -626,7 +626,7 @@ export function IntakeFormClient() {
                     ]} />
 
                   {showActivePosters && (
-                    <div className="space-y-4 pl-4 border-l-2 border-brand-200 dark:border-brand-700">
+                    <div className="space-y-4 pl-4 border-l-2 border-brand-200">
                       <CheckboxGroup label="Which platforms do you use?" required
                         value={checkboxFields.q25_platforms_used}
                         onChange={v => setCheckboxFields(prev => ({ ...prev, q25_platforms_used: v }))}
@@ -647,7 +647,7 @@ export function IntakeFormClient() {
                   )}
 
                   {showNonPosters && (
-                    <div className="space-y-4 pl-4 border-l-2 border-brand-200 dark:border-brand-700">
+                    <div className="space-y-4 pl-4 border-l-2 border-brand-200">
                       <CheckboxGroup label="What has stopped you from being more active?" required
                         value={checkboxFields.q28_stopped_reason}
                         onChange={v => setCheckboxFields(prev => ({ ...prev, q28_stopped_reason: v }))}
@@ -713,7 +713,7 @@ export function IntakeFormClient() {
                     ]} />
 
                   {showAiFrequency && (
-                    <div className="pl-4 border-l-2 border-brand-200 dark:border-brand-700">
+                    <div className="pl-4 border-l-2 border-brand-200">
                       <RadioGroup name="q36b" label="How often do you use AI tools?" value={str('q36b_ai_frequency')}
                         onChange={v => set('q36b_ai_frequency', v)}
                         options={[
@@ -817,10 +817,10 @@ export function IntakeFormClient() {
               <div className="space-y-6">
                 <SectionHeader number="06" title="You Made It" description="You are almost there." />
                 <div className="space-y-4">
-                  <p className="text-sm text-warm-800 dark:text-warm-300">
+                  <p className="text-sm text-warm-800">
                     By submitting, you are giving me permission to review your answers and prepare a personalized strategy session just for you. Everything you shared stays between us -- this is your reset, and I am here to help you make it count.
                   </p>
-                  <div className="rounded-lg bg-white dark:bg-brand-900 p-4 border border-brand-200 dark:border-brand-700">
+                  <div className="rounded-lg bg-white p-4 border border-brand-200">
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input
                         type="checkbox"
@@ -829,7 +829,7 @@ export function IntakeFormClient() {
                         className="mt-0.5 accent-brand-600"
                         required
                       />
-                      <span className="text-sm text-warm-900 dark:text-warm-200">
+                      <span className="text-sm text-warm-900">
                         I understand that this marketing reset provides clarity, a personalized system, and practical tools -- but results depend on my consistent implementation. This is not ongoing marketing management, and no specific outcomes are guaranteed. *
                       </span>
                     </label>
@@ -837,7 +837,7 @@ export function IntakeFormClient() {
                 </div>
 
                 {formState.status === 'error' && (
-                  <p role="alert" className="rounded-md bg-red-50 dark:bg-red-950 px-3 py-2 text-sm text-red-700 dark:text-red-300">
+                  <p role="alert" className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
                     {formState.message}
                   </p>
                 )}

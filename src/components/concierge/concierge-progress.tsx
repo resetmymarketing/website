@@ -25,7 +25,7 @@ export function ConciergeProgress({ currentScreen }: ConciergeProgressProps) {
               ? 'w-6 bg-sage-500'
               : i < currentScreen
                 ? 'w-2 bg-sage-400'
-                : 'w-2 bg-brand-200 dark:bg-brand-700'
+                : 'w-2 bg-brand-200'
           }`}
         />
       ))}

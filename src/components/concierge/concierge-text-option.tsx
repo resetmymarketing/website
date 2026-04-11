@@ -22,12 +22,12 @@ export function ConciergeTextOption({ selected, text, onSelect, onTextChange, pl
         onClick={onSelect}
         className={`w-full rounded-xl border-2 px-5 py-4 text-left transition-colors ${
           selected
-            ? 'border-sage-500 bg-sage-50 dark:border-sage-400 dark:bg-sage-900/30'
-            : 'border-brand-200 bg-white hover:border-brand-300 hover:bg-brand-50 dark:border-dark-600 dark:bg-dark-800 dark:hover:border-dark-500'
+            ? 'border-sage-500 bg-sage-50'
+            : 'border-brand-200 bg-white hover:border-brand-300 hover:bg-brand-50:border-dark-500'
         }`}
       >
-        <span className="text-base font-semibold text-brand-800 dark:text-brand-100">Other</span>
-        <p className="mt-0.5 text-sm text-warm-600 dark:text-warm-400">Describe your situation in your own words</p>
+        <span className="text-base font-semibold text-brand-800">Other</span>
+        <p className="mt-0.5 text-sm text-warm-600">Describe your situation in your own words</p>
       </button>
       {selected && (
         <textarea
@@ -36,7 +36,7 @@ export function ConciergeTextOption({ selected, text, onSelect, onTextChange, pl
           placeholder={placeholder}
           maxLength={500}
           rows={3}
-          className="mt-2 w-full rounded-lg border border-brand-200 bg-white px-4 py-3 text-sm text-brand-800 placeholder:text-warm-400 focus:border-sage-500 focus:outline-none focus:ring-2 focus:ring-sage-500/20 dark:border-dark-600 dark:bg-dark-800 dark:text-brand-100"
+          className="mt-2 w-full rounded-lg border border-brand-200 bg-white px-4 py-3 text-sm text-brand-800 placeholder:text-warm-400 focus:border-sage-500 focus:outline-none focus:ring-2 focus:ring-sage-500/20"
           autoFocus
         />
       )}

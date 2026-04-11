@@ -197,13 +197,13 @@ export function ConciergeClient() {
             screenKey="welcome"
           >
             <div className="mx-auto w-full max-w-2xl text-center">
-              <p className="text-sm font-medium uppercase tracking-widest text-sage-600 dark:text-sage-400">
+              <p className="text-sm font-medium uppercase tracking-widest text-sage-600">
                 {welcomeScreen.eyebrow}
               </p>
-              <h1 className="mt-4 text-3xl font-bold text-brand-800 dark:text-brand-100 sm:text-4xl lg:text-5xl">
+              <h1 className="mt-4 text-3xl font-bold text-brand-800 sm:text-4xl lg:text-5xl">
                 {welcomeScreen.heading}
               </h1>
-              <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-warm-700 dark:text-warm-300">
+              <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-warm-700">
                 {welcomeScreen.body}
               </p>
               <Button
@@ -226,13 +226,13 @@ export function ConciergeClient() {
           >
             <div className="mx-auto w-full max-w-2xl">
               <div className="mb-6 text-center">
-                <p className="text-sm font-medium uppercase tracking-widest text-sage-600 dark:text-sage-400">
+                <p className="text-sm font-medium uppercase tracking-widest text-sage-600">
                   {screenConfig.eyebrow}
                 </p>
-                <h2 className="mt-3 text-2xl font-bold text-brand-800 dark:text-brand-100 sm:text-3xl">
+                <h2 className="mt-3 text-2xl font-bold text-brand-800 sm:text-3xl">
                   {screenConfig.heading}
                 </h2>
-                <p className="mt-2 text-sm text-warm-500 dark:text-warm-400">
+                <p className="mt-2 text-sm text-warm-500">
                   {screenConfig.subtext}
                 </p>
               </div>
@@ -275,13 +275,13 @@ export function ConciergeClient() {
           >
             <div className="mx-auto w-full max-w-2xl">
               <div className="mb-6 text-center">
-                <p className="text-sm font-medium uppercase tracking-widest text-sage-600 dark:text-sage-400">
+                <p className="text-sm font-medium uppercase tracking-widest text-sage-600">
                   {screenConfig.eyebrow}
                 </p>
-                <h2 className="mt-3 text-2xl font-bold text-brand-800 dark:text-brand-100 sm:text-3xl">
+                <h2 className="mt-3 text-2xl font-bold text-brand-800 sm:text-3xl">
                   {screenConfig.heading}
                 </h2>
-                <p className="mt-2 text-sm text-warm-500 dark:text-warm-400">
+                <p className="mt-2 text-sm text-warm-500">
                   {screenConfig.subtext}
                 </p>
               </div>
@@ -321,13 +321,13 @@ export function ConciergeClient() {
           >
             <div className="mx-auto w-full max-w-4xl">
               <div className="mb-4 text-center">
-                <p className="text-sm font-medium uppercase tracking-widest text-sage-600 dark:text-sage-400">
+                <p className="text-sm font-medium uppercase tracking-widest text-sage-600">
                   {screenConfig.eyebrow}
                 </p>
-                <h2 className="mt-2 text-xl font-bold text-brand-800 dark:text-brand-100 sm:text-2xl">
+                <h2 className="mt-2 text-xl font-bold text-brand-800 sm:text-2xl">
                   {screenConfig.heading}
                 </h2>
-                <p className="mt-1 text-sm text-warm-500 dark:text-warm-400">
+                <p className="mt-1 text-sm text-warm-500">
                   {screenConfig.subtext}
                 </p>
               </div>
