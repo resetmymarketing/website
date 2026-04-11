@@ -26,14 +26,22 @@ export function ConciergeReadiness({ onReady, onNotReady }: ConciergeReadinessPr
         &ldquo;This reset requires you to be present, willing, and ready to make real changes. Nothing happens on its own -- everything I am going to give you requires you to implement it. I can show you the path, but you have to walk it. Your commitment to implementation matters more than my strategy. Whether you have zero marketing experience or years of experience, the action required is the same: you have to be ready to actually do the work.&rdquo;
       </div>
 
-      <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-        <Button onClick={onReady} className="w-full sm:w-auto">
+      <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <Button onClick={onReady} className="w-full px-8 py-3 text-base sm:w-auto">
           Yes, I am ready
         </Button>
-        <Button variant="outline" onClick={() => setShowUnsurePopup(true)} className="w-full sm:w-auto">
+        <Button
+          variant="outline"
+          onClick={() => setShowUnsurePopup(true)}
+          className="w-full border-2 border-brand-700 px-8 py-3 text-base text-brand-800 hover:bg-brand-50 dark:border-brand-300 dark:text-brand-100 dark:hover:bg-dark-700 sm:w-auto"
+        >
           I am unsure
         </Button>
-        <Button variant="ghost" onClick={onNotReady} className="w-full text-warm-600 sm:w-auto">
+        <Button
+          variant="outline"
+          onClick={onNotReady}
+          className="w-full border-2 border-warm-400 px-8 py-3 text-base text-warm-700 hover:bg-warm-100 dark:border-warm-500 dark:text-warm-300 dark:hover:bg-dark-700 sm:w-auto"
+        >
           No, not yet
         </Button>
       </div>
