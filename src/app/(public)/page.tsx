@@ -127,7 +127,7 @@ export default function HomePage() {
               One engagement. No retainer. Just clarity.
             </h2>
             <p className="mt-4 text-warm-800">
-              You fill out an intake form, we meet for a focused strategy session, and you
+              You complete a consultation, we meet for a focused strategy session, and you
               walk away with a personalized action plan. The whole process takes two to three weeks.
             </p>
             <div className="mt-8">
