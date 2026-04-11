@@ -22,7 +22,7 @@ export function ConciergeReadiness({ onReady, onNotReady }: ConciergeReadinessPr
         Are you ready to commit to this reset?
       </h2>
 
-      <div className="mx-auto mt-6 max-w-xl rounded-xl bg-brand-50 px-6 py-5 text-left text-sm leading-relaxed text-warm-800 dark:bg-dark-800 dark:text-warm-300">
+      <div className="mx-auto mt-6 max-w-xl rounded-xl bg-brand-50 px-6 py-5 text-left text-sm leading-relaxed text-warm-800 dark:bg-dark-800 dark:text-white">
         &ldquo;This reset requires you to be present, willing, and ready to make real changes. Nothing happens on its own -- everything I am going to give you requires you to implement it. I can show you the path, but you have to walk it. Your commitment to implementation matters more than my strategy. Whether you have zero marketing experience or years of experience, the action required is the same: you have to be ready to actually do the work.&rdquo;
       </div>
 
