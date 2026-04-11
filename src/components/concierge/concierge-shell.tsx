@@ -55,7 +55,7 @@ export function ConciergeShell({
       </div>
 
       {/* Screen content */}
-      <div className="relative flex-1 overflow-hidden">{children}</div>
+      <div className="relative flex-1 overflow-y-auto">{children}</div>
 
       {/* Back button (only after welcome) */}
       {currentScreen > 0 && (

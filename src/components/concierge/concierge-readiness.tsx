@@ -15,6 +15,9 @@ export function ConciergeReadiness({ onReady, onNotReady }: ConciergeReadinessPr
 
   return (
     <div className="mx-auto max-w-2xl px-4 text-center">
+      <p className="mb-2 text-sm font-medium uppercase tracking-widest text-sage-600 dark:text-sage-400">
+        Question 5 of 5
+      </p>
       <h2 className="text-2xl font-bold text-brand-800 dark:text-brand-100 sm:text-3xl">
         Are you ready to commit to this reset?
       </h2>

@@ -3,14 +3,14 @@ import type { ConciergeScreenConfig, ConciergeAnswers } from './concierge-types'
 export const welcomeScreen = {
   eyebrow: 'The Marketing Reset',
   heading: 'Before we dive in, let me learn a little about you.',
-  body: 'I am Karli, and I created The Marketing Reset for service-based business owners who are tired of guessing with their marketing. Over the next few screens, I will ask you four quick questions. Your answers help me understand where you are before you start your consultation. Everything you share stays between us.',
+  body: 'I am Karli, and I created The Marketing Reset for service-based business owners who are tired of guessing with their marketing. Over the next few screens, I will ask you a few quick questions. Your answers help me understand where you are before you start your consultation. Everything you share stays between us.',
   cta: "Let's get started",
 };
 
 export const screens: ConciergeScreenConfig[] = [
   {
     id: 'business-stage',
-    eyebrow: 'Question 1 of 4',
+    eyebrow: 'Question 1 of 5',
     heading: 'Where are you in your business right now?',
     subtext:
       'There is no wrong answer. This helps me calibrate the strategy to your actual situation.',
@@ -56,7 +56,7 @@ export const screens: ConciergeScreenConfig[] = [
   },
   {
     id: 'primary-goal',
-    eyebrow: 'Question 2 of 4',
+    eyebrow: 'Question 2 of 5',
     heading: 'What matters most to you right now?',
     subtext:
       'Pick the one thing that, if it changed, would make the biggest difference.',
@@ -94,7 +94,7 @@ export const screens: ConciergeScreenConfig[] = [
   },
   {
     id: 'marketing-reality',
-    eyebrow: 'Question 3 of 4',
+    eyebrow: 'Question 3 of 5',
     heading: 'How would you describe your marketing right now?',
     subtext:
       'Most service providers were never taught this. No judgment here.',
@@ -147,7 +147,7 @@ export const screens: ConciergeScreenConfig[] = [
   },
   {
     id: 'biggest-constraint',
-    eyebrow: 'Question 4 of 4',
+    eyebrow: 'Question 4 of 5',
     heading: 'What is the biggest thing standing in your way?',
     subtext:
       'Knowing your real constraint helps me build a strategy that actually fits your life.',
