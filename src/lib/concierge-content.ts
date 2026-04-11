@@ -148,9 +148,9 @@ export const screens: ConciergeScreenConfig[] = [
   {
     id: 'biggest-constraint',
     eyebrow: 'Question 4 of 5',
-    heading: 'What is the biggest thing standing in your way?',
+    heading: 'What are the biggest things standing in your way?',
     subtext:
-      'Knowing your real constraint helps me build a strategy that actually fits your life.',
+      'Select all that apply. Knowing your real constraints helps me build a strategy that actually fits your life.',
     formField: 'q39',
     multiSelect: true,
     options: [

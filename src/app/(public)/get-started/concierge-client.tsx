@@ -183,6 +183,10 @@ export function ConciergeClient() {
     <ConciergeShell
       currentScreen={currentScreen}
       canAdvance={canAdvance}
+      showNextButton={
+        currentScreen === 4 ||
+        (currentScreen === 1 && answers.businessStage === 'other')
+      }
       onNext={handleNext}
       onBack={handleBack}
     >
@@ -309,21 +313,21 @@ export function ConciergeClient() {
           </ConciergeScreen>
         )}
 
-        {/* Screen 4: C4 biggest constraints (multi-select) */}
+        {/* Screen 4: C4 biggest constraints (multi-select, 2-column grid) */}
         {screenConfig && currentScreen === 4 && (
           <ConciergeScreen
             direction={direction}
             screenKey={screenConfig.id}
           >
-            <div className="mx-auto w-full max-w-2xl">
-              <div className="mb-6 text-center">
+            <div className="mx-auto w-full max-w-4xl">
+              <div className="mb-4 text-center">
                 <p className="text-sm font-medium uppercase tracking-widest text-sage-600 dark:text-sage-400">
                   {screenConfig.eyebrow}
                 </p>
-                <h2 className="mt-3 text-2xl font-bold text-brand-800 dark:text-brand-100 sm:text-3xl">
+                <h2 className="mt-2 text-xl font-bold text-brand-800 dark:text-brand-100 sm:text-2xl">
                   {screenConfig.heading}
                 </h2>
-                <p className="mt-2 text-sm text-warm-500 dark:text-warm-400">
+                <p className="mt-1 text-sm text-warm-500 dark:text-warm-400">
                   {screenConfig.subtext}
                 </p>
               </div>
@@ -334,7 +338,7 @@ export function ConciergeClient() {
                 variants={staggerContainer}
                 initial="hidden"
                 animate="show"
-                className="space-y-3"
+                className="grid grid-cols-1 gap-2 sm:grid-cols-2"
               >
                 {screenConfig.options.map((option) => (
                   <ConciergeCheckboxOption

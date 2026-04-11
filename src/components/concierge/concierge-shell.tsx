@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useCallback, type ReactNode } from 'react';
+import { Button } from '@/components/ui/button';
 import { ConciergeProgress } from './concierge-progress';
 
 interface ConciergeShellProps {
   currentScreen: number;
   canAdvance: boolean;
+  showNextButton?: boolean;
   onNext: () => void;
   onBack: () => void;
   children: ReactNode;
@@ -14,6 +16,7 @@ interface ConciergeShellProps {
 export function ConciergeShell({
   currentScreen,
   canAdvance,
+  showNextButton = false,
   onNext,
   onBack,
   children,
@@ -57,9 +60,9 @@ export function ConciergeShell({
       {/* Screen content */}
       <div className="relative flex-1 overflow-y-auto">{children}</div>
 
-      {/* Back button (only after welcome) */}
+      {/* Navigation footer */}
       {currentScreen > 0 && (
-        <div className="flex-none px-4 pb-6 pt-2">
+        <div className="flex-none flex items-center justify-between px-6 pb-6 pt-3">
           <button
             type="button"
             onClick={onBack}
@@ -67,6 +70,16 @@ export function ConciergeShell({
           >
             Back
           </button>
+
+          {showNextButton && (
+            <Button
+              onClick={onNext}
+              disabled={!canAdvance}
+              className="px-6"
+            >
+              Next
+            </Button>
+          )}
         </div>
       )}
     </div>

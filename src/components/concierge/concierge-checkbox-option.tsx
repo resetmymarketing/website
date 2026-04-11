@@ -19,7 +19,7 @@ export function ConciergeCheckboxOption({ option, checked, onToggle }: Concierge
       variants={itemVariant}
       type="button"
       onClick={() => onToggle(option.id)}
-      className={`w-full rounded-xl border-2 px-5 py-4 text-left transition-colors ${
+      className={`w-full rounded-xl border-2 px-4 py-3 text-left transition-colors ${
         checked
           ? 'border-sage-500 bg-sage-50 dark:border-sage-400 dark:bg-sage-900/30'
           : 'border-brand-200 bg-white hover:border-brand-300 hover:bg-brand-50 dark:border-dark-600 dark:bg-dark-800 dark:hover:border-dark-500'
@@ -39,8 +39,8 @@ export function ConciergeCheckboxOption({ option, checked, onToggle }: Concierge
           )}
         </div>
         <div>
-          <span className="text-base font-semibold text-brand-800 dark:text-brand-100">{option.label}</span>
-          <p className="mt-0.5 text-sm text-warm-600 dark:text-warm-400">{option.description}</p>
+          <span className="text-sm font-semibold text-brand-800 dark:text-brand-100">{option.label}</span>
+          <p className="mt-0.5 text-xs leading-relaxed text-warm-600 dark:text-warm-400">{option.description}</p>
         </div>
       </div>
     </motion.button>
