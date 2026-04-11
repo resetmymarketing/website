@@ -28,13 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('tmr-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
-          }}
-        />
-      </head>
+      <head />
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <a
           href="#main-content"
