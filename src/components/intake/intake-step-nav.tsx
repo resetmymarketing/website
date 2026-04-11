@@ -38,7 +38,7 @@ export function IntakeStepNav({
 
       {isLast ? (
         <Button type="submit" disabled={isSubmitting} className="gap-2">
-          {isSubmitting ? 'Submitting...' : 'Submit Intake Form'}
+          {isSubmitting ? 'Submitting...' : 'Submit Your Consultation'}
           {!isSubmitting && <ArrowRight className="h-4 w-4" />}
         </Button>
       ) : (
