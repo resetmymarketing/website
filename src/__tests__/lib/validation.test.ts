@@ -182,7 +182,7 @@ describe('publicIntakeSchema', () => {
       q29_tolerable_activity: 'photos',
       q30_q31_service_focus: 'Focus on color, phase out basic cuts.',
       q32_q33_pricing: '$80 average, $300 highest',
-      q34_no_shows_impact: 'sometimes',
+      q34_cancellation_impact: 'sometimes',
       q35_q36_tech_comfort: 'comfortable -- use AI occasionally',
       q36b_ai_frequency: 'weekly',
       q37_help_wanted: ['content_creation', 'scheduling'],

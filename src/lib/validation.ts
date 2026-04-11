@@ -107,7 +107,7 @@ export const publicIntakeSchema = z.object({
   // Step 9: Services & Pricing
   q30_q31_service_focus: z.string().max(2000).optional(),      // "What to focus on, what to phase out?"
   q32_q33_pricing: z.string().max(200).optional(),             // "Average and highest price"
-  q34_no_shows_impact: z.string().max(50).optional(),
+  q34_cancellation_impact: z.string().max(50).optional(),
 
   // Step 10: Tech & Capacity
   q35_q36_tech_comfort: z.string().max(200).optional(),        // Combined tech + AI comfort

@@ -4,20 +4,20 @@
 
 ## Overall Grade: A- (8.7/10)
 
-**Status:** Feature-complete for core operations. EcoTrust palette with dark mode support. Editorial/magazine-style public page layouts with stock photography. All dashboard features built with live data. Security hardened. Comprehensive test coverage. Ready for database deployment.
+**Status:** Consultation form redesign implemented on feature branch (15 commits, unpushed). 7-screen concierge, streamlined form, language swap, all Karli-approved changes built. Dark mode toggle removed for testing. Quality gates passing (83 unit, 30/31 E2E). Awaiting dark mode decision, visual verification, merge.
 
 ## Health Dashboard
 
 | Dimension | Score | Grade | Change | Notes |
 |-----------|-------|-------|--------|-------|
-| Quality Gates | 9.5 | A+ | +0.5 | All passing (type, lint, test, build, E2E) |
+| Quality Gates | 9.0 | A | -0.5 | 83 unit pass, 30/31 E2E (1 blocked by local DB), build clean |
 | Code Quality | 9.0 | A | -- | Strict TS, clean patterns, no any |
 | Security | 9.0 | A | +1.0 | Rate limiting, CSRF, auth, Zod on all routes |
 | Accessibility | 8.5 | A- | +0.5 | E2E verified (landmarks, headings, labels, lang) |
 | Performance | 8.0 | B+ | -- | SSR, static pages, optimized fonts |
 | Inclusivity | 8.0 | B+ | -- | Inclusive language, no assumptions |
 | Bias | 8.0 | B+ | -- | Non-bias pillar enforced |
-| Test Coverage | 8.0 | B+ | +2.0 | 62 unit + 31 E2E tests |
+| Test Coverage | 8.5 | A- | +0.5 | 83 unit + 31 E2E tests (30 passing) |
 | Design Continuity | 9.5 | A+ | +0.5 | EcoTrust palette, dark mode, editorial layouts, stock photography |
 | Tech Debt | 8.5 | A- | -- | Minor: middleware deprecation |
 | Dependencies | 8.0 | B+ | -- | 4 moderate dev-only vulns |
@@ -34,11 +34,11 @@
 | Lines of code | ~5100 |
 | Components | 18 (shadcn + custom + ThemeToggle + IntakeFormClient) |
 | API routes | 14 (auth, clients, contact, intake, dashboard) |
-| Pages / views | 13 (home, about, how-it-works, contact, get-started, login, dashboard, pipeline, clients, client detail, intake, 404) |
+| Pages / views | 14 (home, about, how-it-works, contact, get-started, not-ready, login, dashboard, pipeline, clients, client detail, intake, 404) |
 | Production dependencies | 14 |
 | Dev dependencies | 17 |
-| Unit test cases | 62 |
-| E2E test cases | 31 |
+| Unit test cases | 83 |
+| E2E test cases | 31 (30 passing, 1 blocked by local DB) |
 
 ## Production Readiness Checklist
 
@@ -46,19 +46,23 @@
 |---|-------------|--------|
 | 1 | All quality gates pass | PASS |
 | 2 | Auth system functional | PASS |
-| 3 | Database connected and migrated | PENDING (migration generated, needs VPS) |
+| 3 | Database connected and migrated | PASS (deployed Session 9, schema migrated, admin seeded) |
 | 4 | Public site pages complete | PASS |
 | 5 | Dashboard features complete | PASS |
 | 6 | E2E tests written and passing | PASS (31 tests) |
 | 7 | Lighthouse Performance 90+ | UNTESTED |
 | 8 | Lighthouse Accessibility 100 | UNTESTED |
 | 9 | Security headers A+ | CONFIGURED |
-| 10 | SSL/TLS configured | PENDING (deployment) |
-| 11 | Backups configured | PENDING (deployment) |
-| 12 | Monitoring configured | PENDING (deployment) |
+| 10 | SSL/TLS configured | PASS (certbot SSL on reset.builtbybas.com, Session 11) |
+| 11 | Backups configured | PENDING (weekly VPS snapshots via Hostinger) |
+| 12 | Monitoring configured | PENDING (PM2 process monitoring active, no uptime checks) |
 
-**Production Ready:** Pending database deployment and VPS setup only
+**Production Ready:** Live at reset.builtbybas.com (main branch). Feature branch pending merge. Pending: dark mode decision, visual verification, resetmymarketing.com domain approval, Lighthouse audits, manual a11y testing, security audit
 
-## Open Issues: 0
+## Open Issues: 3
 
-## Deferred Issues: 2 (Deployment phase)
+- O1 (LOW): E2E login test fails -- needs local marketing_reset DB
+- O2 (LOW): Turbopack crashes on dev machine -- using webpack fallback
+- O3 (MEDIUM): Dark mode toggle removed -- awaiting decision
+
+## Deferred Issues: 1 (middleware deprecation)

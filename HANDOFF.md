@@ -90,21 +90,66 @@
 
 ### What's In-Progress
 
-- Nothing currently in progress
+- **Consultation form redesign** -- branch `feat/consultation-form-redesign` (15 commits, unpushed)
+  - All Karli-approved changes from Session 12 have been IMPLEMENTED:
+    - Concierge rewritten as 7-screen flow (was 6): welcome, C1 with Other, C2, C3 with 7th option, C4 multi-select, summary builder, C5 readiness qualifier
+    - Consultation form rewritten with streamlined questions: 4 cuts (Q20b/c/d, Q26), 6 additions (voice, content enjoyment, FAQs, transformation, seasonality, solo/team), reframes (Q13 conversational, Q22/Q23 combined, Q34 broadened, Q48 warm close)
+    - Online Presence moved to Step 0 with compact link tables (GMB + Yelp added)
+    - Confirmation card shows concierge answers at top of Step 1
+    - Language swap: "intake" -> "consultation" in all user-facing strings
+    - Not-ready page at /not-ready for C5 "No" routing
+    - New components: ConciergeCheckboxOption, ConciergeTextOption, ConciergeReadiness, IntakeConfirmationCard, IntakeLinkTable
+  - Dark mode toggle removed for testing (last commit) -- needs decision to restore or keep light-only
+  - **Pending:** Bas to decide on dark mode, push branch, merge to main
+
+### VPS Deployment (Completed 2026-03-15)
+
+- **Domain:** resetmymarketing.com (under registrar review, not yet active)
+- **Port:** 3007
+- **PM2 app name:** the-marketing-reset (fork mode, 250MB memory limit)
+- **Directory:** /var/www/the-marketing-reset
+- **Database:** PostgreSQL user `marketing_reset`, database `marketing_reset`
+- **Admin seeded:** admin@themarketingreset.com
+- **Nginx:** HTTP config in place at /etc/nginx/sites-available/resetmymarketing
+- **SSL:** Not yet configured (waiting on domain approval)
+- **GitHub:** github.com/resetmymarketing/website (branch: main)
+- **SSH keys:** Separate deploy keys on VPS and local dev machine (github.com-resetmymarketing alias)
+- **Package manager:** Switched from npm to pnpm (node-linker=hoisted in .npmrc for compatibility)
+
+### VPS User Isolation (Completed 2026-03-16)
+
+- App runs as dedicated `marketingreset` Linux service account (nologin)
+- PM2 systemd service: `pm2-marketingreset` (auto-restart on reboot)
+- Ecosystem file: `/var/www/the-marketing-reset/ecosystem.config.cjs` (PORT=3007)
+- .env.local locked to chmod 600 (only marketingreset user can read)
+- Subdomain: **https://reset.builtbybas.com** (SSL via certbot)
+- All deploys/builds must run as the service user:
+
+  ```bash
+  sudo -u marketingreset env PATH=/usr/local/bin:/usr/bin:/bin HOME=/var/www/the-marketing-reset bash -c '<command>'
+  ```
 
 ### What's Next
 
-1. Run PostgreSQL database migrations on VPS
-2. Deploy to production
-3. Manual accessibility testing (200% zoom, screen reader, reduced motion)
-4. Lighthouse performance/accessibility audit
-5. Configure SSL/TLS, backups, monitoring on VPS
-6. Migrate middleware to proxy (Next.js 16 deprecation)
-7. Manual testing of concierge flow end-to-end (all screens, keyboard nav, dark mode)
+1. **Dark mode decision** -- restore toggle or keep light-only?
+2. **Push feature branch** -- 15 commits on feat/consultation-form-redesign
+3. **Visual verification** -- Bas to review concierge + consultation flow on dev server
+4. **Merge to main** after visual approval
+5. **Set up local marketing_reset DB** -- E2E login test hangs without it (DB pool timeout)
+6. Domain approval (resetmymarketing.com under registrar review)
+7. Point DNS A records to VPS IP once domain is active
+8. Run `certbot --nginx -d resetmymarketing.com -d www.resetmymarketing.com` for SSL
+9. Change default admin password on first login
+10. Manual accessibility testing (200% zoom, screen reader, reduced motion)
+11. Lighthouse performance/accessibility audit
+12. Manual testing of concierge + consultation flow end-to-end (all screens, keyboard nav)
+13. Migrate middleware to proxy (Next.js 16 deprecation)
+14. Security audit (SECURITY-AUDIT.md per Portfolio Quality Initiative)
 
 ### Blockers
 
-- None
+- Domain resetmymarketing.com under registrar review (cannot configure DNS or SSL until approved)
+- E2E auth test (1/31) fails -- login API hangs on local DB connection. Need local marketing_reset database or connection timeout in db.ts
 
 ### Decisions Made
 
@@ -138,3 +183,9 @@
 | 2026-03-07 | 6       | Public intake form (48 questions, /get-started), public API route, content alignment fixes, button routing. All quality gates passing. |
 | 2026-03-07 | 7       | Contrast boost (AAA compliance), darkened form borders, label-to-input spacing, hero button white-on-white fix, select title attributes for a11y. All quality gates passing. |
 | 2026-03-15 | 8       | Concierge "Get Started" experience (6-screen guided flow with Framer Motion animations), multi-step intake form (6 steps with progress bar), 6 new intake questions (brand messaging, retention, competition, marketing investment). framer-motion dependency added. All quality gates passing. |
+| 2026-03-15 | 9       | VPS deployment. Switched npm to pnpm. Created PM2 ecosystem config, Nginx config, DEPLOY.md. Set up GitHub repo (resetmymarketing/website), SSH keys (local + VPS). Deployed to VPS: cloned, PostgreSQL database created, schema migrated, admin seeded, built, PM2 running on port 3007, Nginx configured. Domain under registrar review. SSL pending. |
+| 2026-03-16 | 10      | VPS security audit: closed UFW port 3003 (analytics proxied by Nginx). Planned user isolation migration: spec + implementation plan for migrating ABHS, Figaro, Marketing Reset, Umami from root PM2 to dedicated no-login Linux service accounts. Ready to execute next session. |
+| 2026-03-16 | 11      | Executed VPS user isolation: migrated 4 apps (Umami, Figaro, Marketing Reset, ABHS) to dedicated nologin service accounts with isolated PM2 + systemd startup. Set up builtbybas.com subdomains (abhs, figaro, reset) with Nginx + SSL. Closed direct app ports. Added default Nginx catchall (444) for bare IP. Updated global docs. |
+| 2026-04-10 | 12      | Karli's first direct Claude Code session. Reviewed v3.0 handoff doc against actual codebase -- found duplication issues and inaccuracies from prior Claude session. Analyzed all 52 questions against deliverable needs. Identified 4 cuts (Q20b, Q20c, Q20d, Q26), 6 new questions (voice, content enjoyment, FAQs, transformation, seasonality, team), and multiple reframes for inclusivity. Created HTML mockup in tmp/. Karli approved all recommendations. No code changes -- planning only. |
+| 2026-04-10 | 13*     | Implementation sessions (unknown count). Implemented all Session 12 approved changes: 7-screen concierge (Other, multi-select, readiness), consultation form rewrite (cuts, additions, reframes, link tables), language swap, not-ready page, new components. Tests updated (83 passing). Dark mode removed for testing. |
+| 2026-04-11 | 14      | Codebase audit. Fixed q34 field name mismatch (validation vs form). Updated Playwright config (Turbopack crash workaround, port fix, webpack fallback). Ran E2E tests (30/31 pass -- 1 blocked by missing local DB). Updated governance files to reflect actual branch state. |
