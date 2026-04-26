@@ -6,25 +6,25 @@
 
 | Gate             | Command              | Result | Notes                                         |
 |------------------|----------------------|--------|-----------------------------------------------|
-| Type checking    | `npm run type-check` | PASS   | 0 errors, strict mode                         |
-| Linting          | `npm run lint`       | PASS   | 0 errors, 0 warnings                          |
-| Tests            | `npm run test`       | PASS   | 83/83 passing (was 62 on main)                |
-| Build            | `npm run build`      | PASS   | 28 routes (10 static, 15 dynamic, 3 API groups) |
-| E2E tests        | `npx playwright test`| WARN   | 30/31 passing (1 blocked by missing local DB) |
-| Dependency audit | `pnpm audit`         | WARN   | 10 vulns: 2 HIGH, 8 moderate (1 HIGH prod: Next.js DoS). See detail below. |
+| Type checking    | `pnpm type-check`    | PASS   | 0 errors, strict mode (S16 verified on Next 16.2.3 after `.next/` cache clear) |
+| Linting          | `pnpm lint`          | PASS   | 0 errors, 0 warnings (S16)                    |
+| Tests            | `pnpm test`          | PASS   | 83/83 passing (S16 verified on Next 16.2.3)   |
+| Build            | `pnpm build`         | PASS   | 28 routes (S16, 2.4s compile)                 |
+| E2E tests        | `pnpm test:e2e`      | WARN   | 30/31 passing (1 blocked by missing local DB) |
+| Dependency audit | `pnpm audit`         | WARN   | Production CVE patched S16. Remaining 7 are dev-only. See detail below. |
 
-### Vulnerability Detail (verified 2026-04-12)
+### Vulnerability Detail (updated 2026-04-25 post-S16 deploy)
 
 | Package            | Severity | Path                                              | Production Impact                               | Action                              |
 |--------------------|----------|---------------------------------------------------|-------------------------------------------------|-------------------------------------|
-| next               | HIGH     | direct dep                                        | **YES** -- DoS via Server Components (<16.2.3)  | Bump 16.1.7 -> 16.2.3+ (staging req) |
+| ~~next 16.1.7~~    | ~~HIGH~~ | ~~direct dep~~                                    | ~~YES~~                                         | **PATCHED S16** -- next 16.2.3 in prod (F15) |
 | vite               | HIGH     | dev (vitest runtime)                              | None -- dev server only                         | Bump vite 6.4.1 -> 6.4.2+           |
 | vite               | Moderate | dev                                               | None -- dev server only                         | Covered by above bump               |
 | esbuild            | Moderate | drizzle-kit > @esbuild-kit (dev)                  | None -- dev-only                                | Monitor for drizzle-kit update      |
 | hono (x2)          | Moderate | shadcn > @modelcontextprotocol/sdk (dev CLI)      | None -- shadcn CLI only, not bundled            | Upstream fix via shadcn update      |
 | @hono/node-server  | Moderate | shadcn > @modelcontextprotocol/sdk (dev CLI)      | None -- shadcn CLI only, not bundled            | Upstream fix via shadcn update      |
 
-**Deploy blocker:** Next.js 16.1.7 -> 16.2.3 is a minor bump patching a production DoS. Per 2026-04-12 Figaro incident, Next.js 16.1 -> 16.2 caused crash-loop in production (CSP middleware + Node 22 compat). **Must stage on VPS (`/tmp/the-marketing-reset-debug/` with manual `next start`) before touching production.**
+**Production CVE status (2026-04-25):** GHSA-q4gf-8mx6-v5v3 (Next.js Server Components DoS) is **PATCHED** in production. VPS runs Next.js 16.2.3, Ready in 231ms, no crash signature. Staging in `/tmp/the-marketing-reset-debug/` on port 3099 successfully reproduced clean startup before the production deploy (the same pattern that exposed the Figaro crash-loop axis).
 
 ## Issues Tracker
 
@@ -45,7 +45,9 @@
 | O2 | LOW | Config | Turbopack crashes on dev machine. Playwright config uses --webpack fallback. | S14 | Workaround |
 | O4 | HIGH | Infra | ~~marketingreset service user SSH deploy broken~~ | S15 | **CLOSED** -- see F12 |
 | O5 | MEDIUM | Infra | ~~stripped ecosystem.config.cjs deployed~~ | S15 | **CLOSED** -- see F13 |
-| O6 | HIGH | Security | Next.js 16.1.7 Server Components DoS CVE (GHSA-q4gf-8mx6-v5v3) in production. Fix = bump to 16.2.3. Minor bump on the same axis that crash-looped Figaro 2026-04-12 -- staging on VPS via `/tmp/the-marketing-reset-debug/` with manual `next start` required before production deploy. | S15 | Open |
+| O6 | HIGH | Security | ~~Next.js 16.1.7 Server Components DoS CVE (GHSA-q4gf-8mx6-v5v3) in production~~ | S15 | **CLOSED S16** -- see F15 |
+| O7 | LOW | Security | `x-powered-by: Next.js` header leaked publicly. Information disclosure (framework name, no version). One-line fix: `poweredByHeader: false` in `next.config.ts`. Verified via `curl -sI https://reset.builtbybas.com/`. | S16 | Open |
+| O8 | LOW | Docs | PM2 mode drift -- live `pm2 list` shows mode `cluster`, but HANDOFF.md history records "fork mode (250MB memory limit)". Reconcile via `ecosystem.config.cjs` to declare which is intentional, then update doc to match. | S16 | Open |
 
 ### Fixed Issues
 
@@ -65,6 +67,7 @@
 | F12 | HIGH    | Infra    | O4: broken SSH deploy alias for marketingreset user                                             | Generated ed25519 keypair, added read-only deploy key on resetmymarketing/website, wrote ~/.ssh/config alias. Legacy root-owned key archived to /root/.ssh/archive-2026-04-12/. Revoked old GitHub deploy key. | 15 |
 | F13 | MEDIUM  | Infra    | O5: stripped ecosystem.config.cjs deployed                                                       | Pulled comprehensive repo version (NODE_ENV=production, 250M memory cap, log paths). PM2 delete+start + pm2 save. Verified node env=production in pm2 show. | 15 |
 | F14 | HIGH    | Security | Leaked GitHub PAT in cleartext on Colour Parlor's git remote URL (discovered during cross-project audit) | Generated ed25519 deploy key for colourparlor user, added on AlwaysinAllways/colourparlor, swapped remote to SSH alias, Bas revoked the leaked PAT. | 15 |
+| F15 | HIGH    | Security | O6: Next.js 16.1.7 Server Components DoS CVE (GHSA-q4gf-8mx6-v5v3) in production. | Surgical bump to next 16.2.3 + eslint-config-next 16.2.3 on `fix/next-16.2.3-cve-patch` branch (rejected both Dependabot multi-major bundles). Local quality gates clean. VPS staged in `/tmp/the-marketing-reset-debug/` port 3099 -- Ready in 218ms, 8 routes smoke 200/404. Merged --no-ff to main (`0bd26d1`), deployed to production -- Ready in 231ms, 200 OK on all public routes. | 16 |
 
 ### Deferred Issues
 
@@ -176,3 +179,4 @@
 | 2026-04-10 | 12      | Review  | A  (9.0/10) | Claude + Karli | Consultation form question audit with Karli. No code changes -- planning only. |
 | 2026-04-11 | 14      | Audit   | A  (9.0/10) | Claude  | Fixed q34 field mismatch. Playwright config fixes (Turbopack crash, port). 83 unit tests, 30/31 E2E. Governance files updated. |
 | 2026-04-12 | 15      | Governance | A- (8.5/10) | Claude | Portfolio quality sweep. Updated CLAUDE.md (Eight->Twelve Pillars, Data Protection, pnpm). Refreshed vulnerability detail (10 vulns, 1 HIGH prod Next.js DoS). VPS divergence: 3 commits behind local main + 15 unmerged feat commits. Missing: SECURITY-AUDIT.md, rollback runbook in DEPLOY.md. |
+| 2026-04-25 | 16      | Deploy + CVE patch | A (9.0/10) | Claude | Pre-redesign cleanup + Phase 2b CVE patch shipped. Two commits on feat branch (governance/housekeeping + docs). Merged feat/consultation-form-redesign -> main (--no-ff `a56c997`). Phase 2b: surgical Next 16.1.7 -> 16.2.3 bump on `fix/next-16.2.3-cve-patch`, all local quality gates clean (test 83/83), staged on VPS at /tmp/the-marketing-reset-debug/ port 3099 (Ready 218ms, 8 routes smoke 200/404), merged --no-ff to main (`0bd26d1`), production deployed -- Ready in 231ms on Next 16.2.3, `reset.builtbybas.com` 200 OK. F15: O6 closed. New findings O7 (x-powered-by leak) + O8 (PM2 mode docs drift), both LOW. |

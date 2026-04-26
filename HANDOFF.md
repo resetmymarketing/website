@@ -90,17 +90,8 @@
 
 ### What's In-Progress
 
-- **Consultation form redesign** -- branch `feat/consultation-form-redesign` (15 commits, unpushed)
-  - All Karli-approved changes from Session 12 have been IMPLEMENTED:
-    - Concierge rewritten as 7-screen flow (was 6): welcome, C1 with Other, C2, C3 with 7th option, C4 multi-select, summary builder, C5 readiness qualifier
-    - Consultation form rewritten with streamlined questions: 4 cuts (Q20b/c/d, Q26), 6 additions (voice, content enjoyment, FAQs, transformation, seasonality, solo/team), reframes (Q13 conversational, Q22/Q23 combined, Q34 broadened, Q48 warm close)
-    - Online Presence moved to Step 0 with compact link tables (GMB + Yelp added)
-    - Confirmation card shows concierge answers at top of Step 1
-    - Language swap: "intake" -> "consultation" in all user-facing strings
-    - Not-ready page at /not-ready for C5 "No" routing
-    - New components: ConciergeCheckboxOption, ConciergeTextOption, ConciergeReadiness, IntakeConfirmationCard, IntakeLinkTable
-  - Dark mode toggle removed for testing (last commit) -- needs decision to restore or keep light-only
-  - **Pending:** Bas to decide on dark mode, push branch, merge to main
+- **Nothing in-flight.** Production at `https://reset.builtbybas.com` is on `0bd26d1` (Next.js 16.2.3, consultation form redesign live, CVE GHSA-q4gf-8mx6-v5v3 patched). Working tree clean on local main.
+- **Next active initiative:** JawDrop public-site rebuild — spec at `docs/superpowers/specs/2026-04-12-jawdrop-rebrand-design.md`. Not started.
 
 ### VPS Deployment (Completed 2026-03-15)
 
@@ -129,28 +120,30 @@
   sudo -u marketingreset env PATH=/usr/local/bin:/usr/bin:/bin HOME=/var/www/the-marketing-reset bash -c '<command>'
   ```
 
-### What's Next (updated 2026-04-12 end of Session 15)
+### What's Next (updated 2026-04-25 end of Session 16)
 
 **Immediate — top of next session:**
 
-1. **Phase 2b: Next.js 16.1.7 -> 16.2.3 (surgical)** -- patches open GHSA-q4gf-8mx6-v5v3 DoS CVE (O6). DO NOT merge either Dependabot PR as-is; both bundle risky unrelated major version jumps (dev PR proposes TypeScript 6, Vite 8, ESLint 10 -- Figaro-class risk). Instead: locally bump `next` and `eslint-config-next` to `16.2.3` on a dedicated branch, full quality gate run, then stage on VPS at `/tmp/the-marketing-reset-debug/` with manual `next start` on port 3099 before production deploy. Deploy flow proven in Session 15 Phase 2a.
-2. **Push + merge feat/consultation-form-redesign** -- 15 commits already on origin (confirmed via fetch). Visual verification on dev server, then merge to main, deploy via the new SSH-service-user flow.
+1. **Branch `feat/jawdrop-rebrand-2026` off main** and start vertical slice 1 of the JawDrop public-site rebuild (palette tokens, Fraunces + Inter fonts, shadcn theme regen). Spec: `docs/superpowers/specs/2026-04-12-jawdrop-rebrand-design.md`. Six chapters + global shell, 8 signature motion moments (Framer-only, no GSAP/Lenis). Reskin-only on concierge/form (zero structural change to validation, schema, API, dashboard, auth, DB).
+2. **Quick fix LOW: strip `x-powered-by: Next.js` header.** One line in `next.config.ts`: `poweredByHeader: false`. Verified leaked publicly via `curl -sI https://reset.builtbybas.com/`. Fold into the rebrand branch slice 1 or its own micro-PR.
+3. **Reconcile PM2 mode drift.** Live `pm2 list` shows mode `cluster`; HANDOFF history said "fork mode". Verify `ecosystem.config.cjs` declares which, fix doc or config so they agree.
 
-**Cross-project (discovered in Session 15 portfolio audit, not Marketing Reset's scope but flagged for next session):**
-3. **Figaro crash-loop investigation** -- 85 restarts in 3h, post-rollback instability on `figaro.builtbybas.com`.
-4. **Dispensory auth fix** -- `UntrustedHost` errors hitting real users on `dispensory.builtbybas.com/api/auth/session`. Likely `trustHost: true` or `AUTH_URL` missing. Dispensory also needs the same Next.js CVE patch (runs 16.1.6, one minor behind us).
-5. **Root hygiene cleanup on VPS** -- archive `/root/.ssh/github_allbeautyhairstudio*` (ABHS already uses its own service-user key), identify mystery `/root/.ssh/github_deploy*`, investigate `/root/.ssh/authorized_keys` mtime 2026-04-12 03:27.
-6. **Portfolio ecosystem drift remediation** -- 5 other projects have stripped or missing `ecosystem.config.cjs`. Apply the Marketing Reset Phase 2a pattern to each. Track in `~/.claude/docs/vps-infrastructure.md` Portfolio Drift Audit appendix.
+**Cross-project (still flagged from S15, no change):**
+4. **Figaro crash-loop investigation** -- 85 restarts in 3h, post-rollback instability on `figaro.builtbybas.com`.
+5. **Dispensory auth fix** -- `UntrustedHost` errors. Same Next.js CVE patch needed (Dispensory runs 16.1.6).
+6. **Root hygiene cleanup on VPS** -- archive `/root/.ssh/github_allbeautyhairstudio*`, identify mystery `/root/.ssh/github_deploy*`, investigate `/root/.ssh/authorized_keys` mtime 2026-04-12 03:27.
+7. **Portfolio ecosystem drift remediation** -- 5 projects with stripped/missing `ecosystem.config.cjs`. Apply the Marketing Reset Phase 2a/2b pattern to each.
 
-**Backlog (no change from prior handoffs):**
-7. **Set up local marketing_reset DB** -- unblocks E2E login test (30/31 -> 31/31).
-8. **Domain approval** for resetmymarketing.com (registrar review).
-9. **DNS A records + certbot SSL** once domain is active.
-10. **Change default admin password** on first login.
-11. **Manual accessibility testing** (200% zoom, screen reader, reduced motion).
-12. **Lighthouse audit**.
-13. **Middleware -> proxy** migration (Next.js 16 deprecation).
-14. **Full 200-item SECURITY-AUDIT.md sweep** -- file seeded in Session 15, content pending.
+**Backlog (unchanged):**
+8. **Set up local marketing_reset DB** -- unblocks E2E login test (30/31 -> 31/31).
+9. **Domain approval** for resetmymarketing.com (registrar review).
+10. **DNS A records + certbot SSL** once domain is active.
+11. **Change default admin password** on first login.
+12. **Manual accessibility testing** (200% zoom, screen reader, reduced motion).
+13. **Lighthouse audit**.
+14. **Middleware -> proxy** migration (Next.js 16 deprecation, TD1).
+15. **Full 200-item SECURITY-AUDIT.md sweep** -- file seeded S15, content pending.
+16. **Trim HANDOFF.md** -- now over 150 lines; consider moving "What's Done" history to a new COMPLETED.md (deferred this session, requires Bas approval).
 
 ### Blockers
 
@@ -198,3 +191,4 @@
 | 2026-04-12 | 15      | Portfolio quality governance sweep. CLAUDE.md updated (Eight->Twelve Pillars, Data Protection, pnpm corrected, LastStatusReport in session protocol). Dep audit refreshed: 10 vulns (2 HIGH, 8 moderate) including 1 HIGH production Next.js DoS (16.1.7 < 16.2.3). VPS state verified: main @ 1d9db89, 3 commits behind local main, feat branch 15 commits unmerged. Env parity OK. Flagged missing SECURITY-AUDIT.md and rollback runbook. No code changes. |
 | 2026-04-12 | 15 cont.| Started Phase 2a (catch VPS up 3 commits) -- BLOCKED by infra gaps. Discovered: (1) `marketingreset` SSH alias `github.com-resetmymarketing` is referenced in git remote but no keys / `.ssh/config` exist for the service user -- `git pull` fails; (2) deployed `ecosystem.config.cjs` is stripped vs repo (no NODE_ENV, no memory cap, no log paths); (3) cross-project read-only audit revealed portfolio-wide ecosystem drift plus a **leaked GitHub PAT on Colour Parlor's git remote (URGENT, revocation pending)**. Created SECURITY-AUDIT.md and added rollback runbook to DEPLOY.md. O3 (dark mode) closed: light-only confirmed. New issues O4, O5, O6 logged. Updated ~/.claude/docs/vps-infrastructure.md with Portfolio Drift Audit appendix. No VPS writes. |
 | 2026-04-12 | 15 fix  | Fixed O4, O5, and the Colour Parlor PAT leak (F12, F13, F14). Generated per-user ed25519 deploy keys for marketingreset and colourparlor. Added as read-only deploy keys on respective GitHub repos. Wrote ~/.ssh/config aliases. Swapped Colour Parlor remote from HTTPS-with-token to SSH alias. Bas revoked old GitHub deploy keys. Archived legacy root-owned keys to /root/.ssh/archive-2026-04-12/. Executed Phase 2a: stashed stripped ecosystem, ff-pulled main 1d9db89 -> 9ba05e1 (Next 16.1.6 -> 16.1.7 patch + 9 transitive vuln patches + Dependabot), pnpm install --frozen-lockfile, pnpm build, pm2 delete+start with comprehensive ecosystem (NODE_ENV=production, 250M cap, log paths), pm2 save. Smoke test: localhost:3007 and <https://reset.builtbybas.com> both return 200. Last Known-Good updated in DEPLOY.md. |
+| 2026-04-25 | 16      | Pre-redesign cleanup + Phase 2b deployed. Visual-verified consultation form on dev. Two cleanup commits on feat branch (governance + docs). Merged feat/consultation-form-redesign -> main (--no-ff `a56c997`), pushed. Phase 2b: branched fix/next-16.2.3-cve-patch, surgical bump (rejected Dependabot multi-major bundles), local quality gates clean (type 0, lint 0/0, test 83/83, build 28 routes), VPS staged at /tmp/the-marketing-reset-debug/ port 3099 -- Next 16.2.3 Ready in 218ms, 8 routes smoke 200/404. Killed staging via fuser -k. Merged fix -> main (--no-ff `0bd26d1`), pushed. Production deploy: VPS git pull, CI=true pnpm install --frozen-lockfile (34.3s), pnpm build, pm2 restart -- Ready in 231ms on Next 16.2.3. Smoke <https://reset.builtbybas.com/> + /get-started + /not-ready + /about all 200. O6 closed (CVE patched). New findings: x-powered-by header leaked (LOW), PM2 mode drift cluster vs docs fork. .gitignore tightened: .mcp.json.bak*, .superpowers/, tmp/, public/mockup.html. |

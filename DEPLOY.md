@@ -161,8 +161,9 @@ Should return `200`.
 
 ### Last Known-Good Commit
 
-- **2026-04-12 (after Phase 2a deploy):** `9ba05e1` -- chore: add Dependabot for automated dependency security monitoring. Currently deployed on VPS via marketingreset user + SSH deploy key, serving production on <https://reset.builtbybas.com>. NODE_ENV=production, 250M memory cap, comprehensive ecosystem config. Next.js 16.1.7.
-- **Previous LKG (pre-2026-04-12):** `1d9db89` -- Merge remote main branch. Deployed via root user + legacy deploy key (now archived).
+- **2026-04-25 (after Phase 2b deploy, S16):** `0bd26d1` -- Merge branch 'fix/next-16.2.3-cve-patch' into main. Currently deployed on VPS via marketingreset user + SSH deploy key, serving production on <https://reset.builtbybas.com>. **Next.js 16.2.3** (CVE GHSA-q4gf-8mx6-v5v3 patched), Ready in 231ms, NODE_ENV=production, 250M memory cap, comprehensive ecosystem config. Includes consultation form redesign + JawDrop rebrand spec committed (not implemented yet).
+- **Previous LKG (2026-04-12, after Phase 2a):** `9ba05e1` -- chore: add Dependabot. Next.js 16.1.7. Deployed via marketingreset user + SSH deploy key.
+- **Pre-2026-04-12:** `1d9db89` -- Merge remote main branch. Deployed via root user + legacy deploy key (now archived).
 - Update this line after every successful production deploy.
 
 ### When to Roll Back
