@@ -4,11 +4,15 @@ import { ArrowRight } from 'lucide-react';
 import { SunBadge } from '@/components/brand/SunBadge';
 import { StripeDivider } from '@/components/brand/StripeDivider';
 import { StrikethroughCycler } from '@/components/motion/StrikethroughCycler';
+import { SunArc } from '@/components/motion/SunArc';
 import { HERO_COPY } from '@/lib/copy/home';
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="relative">
+      {/* Ambient sun arc — traverses the page on scroll */}
+      <SunArc size={140} />
+
       {/* === Section 1: Hero (Chapter 01) === */}
       <section className="relative overflow-hidden bg-pacific-500 px-4 pt-12 pb-24 sm:px-6 lg:px-8 lg:pt-20 lg:pb-32">
         <StripeDivider color="lemonade" className="mb-10" />
