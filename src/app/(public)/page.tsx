@@ -86,7 +86,7 @@ export default function HomePage() {
       </section>
 
       {/* === Section 2: Who this is for (Oat band) === */}
-      <section className="bg-oat-200 px-4 py-24 sm:px-6 lg:px-8">
+      <section className="relative z-10 isolate bg-oat-200 px-4 py-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <p
             className="text-xs font-semibold uppercase tracking-widest text-lime-700"
@@ -125,7 +125,7 @@ export default function HomePage() {
       </section>
 
       {/* === Section 3: Three shifts (Pacific pillar grid) === */}
-      <section className="bg-pacific-500 px-4 py-24 sm:px-6 lg:px-8">
+      <section className="relative z-10 isolate bg-pacific-500 px-4 py-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <StripeDivider color="lemonade" className="mb-8" />
           <p
@@ -182,7 +182,7 @@ export default function HomePage() {
       />
 
       {/* === Section 6: Final CTA (Lapis + Lemonade pill) === */}
-      <section className="bg-lapis-700 px-4 py-24 text-center sm:px-6 lg:px-8">
+      <section className="relative z-10 isolate bg-lapis-700 px-4 py-24 text-center sm:px-6 lg:px-8">
         <div className="relative mx-auto max-w-3xl">
           <h2
             className="text-3xl text-white sm:text-4xl lg:text-5xl"

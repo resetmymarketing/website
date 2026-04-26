@@ -26,7 +26,7 @@ export function AudienceMosaic({
   className,
 }: AudienceMosaicProps) {
   return (
-    <section className={`bg-lapis-700 px-4 py-24 sm:px-6 lg:px-8 ${className ?? ''}`}>
+    <section className={`relative z-10 isolate bg-lapis-700 px-4 py-24 sm:px-6 lg:px-8 ${className ?? ''}`}>
       <div className="mx-auto max-w-6xl">
         {eyebrow && (
           <p

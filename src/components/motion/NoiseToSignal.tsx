@@ -25,15 +25,18 @@ export function NoiseToSignal({ noise, signalHeadline, signalBody }: NoiseToSign
     target: ref,
     offset: ['start start', 'end end'],
   });
-  const noiseOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const noiseScale = useTransform(scrollYProgress, [0, 0.6], [1, 0.6]);
-  const signalOpacity = useTransform(scrollYProgress, [0.4, 0.8], [0, 1]);
+  // Tightened timing: chips stay readable until 40%, snap out by 55%.
+  // Signal fades in 45%-65%, with brief overlap so the cross-fade reads
+  // as one motion rather than two disconnected ones.
+  const noiseOpacity = useTransform(scrollYProgress, [0, 0.4, 0.55], [1, 1, 0]);
+  const noiseScale = useTransform(scrollYProgress, [0, 0.55], [1, 0.7]);
+  const signalOpacity = useTransform(scrollYProgress, [0.45, 0.65], [0, 1]);
 
   return (
     <section
       ref={ref}
-      className="relative bg-pacific-50"
-      style={reduced ? undefined : { minHeight: '180vh' }}
+      className="relative z-10 isolate bg-pacific-50"
+      style={reduced ? undefined : { minHeight: '130vh' }}
     >
       <div className="sticky top-0 flex h-screen items-center px-4 sm:px-6 lg:px-8">
         <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-12 lg:grid-cols-2">
