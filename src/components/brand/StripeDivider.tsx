@@ -1,10 +1,11 @@
-type StripeColor = 'lime' | 'lapis' | 'pacific' | 'limeade';
+type StripeColor = 'lime' | 'lapis' | 'pacific' | 'limeade' | 'lemonade';
 
 const STROKE_VAR: Record<StripeColor, string> = {
   lime: 'var(--lime-500)',
   lapis: 'var(--lapis-500)',
   pacific: 'var(--pacific-500)',
   limeade: 'var(--limeade-500)',
+  lemonade: 'var(--lemonade-500)',
 };
 
 interface StripeDividerProps {

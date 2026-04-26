@@ -29,15 +29,15 @@ export function StrikethroughCycler({
   className,
 }: StrikethroughCyclerProps) {
   const reduced = useReducedMotion();
-  const [stage, setStage] = useState<'cycle' | 'resolution'>(reduced ? 'resolution' : 'cycle');
   const [index, setIndex] = useState(0);
+
+  // Stage is derived, not stored — keeps effect free of cascading setState.
+  const stage: 'cycle' | 'resolution' =
+    reduced || index >= tactics.length ? 'resolution' : 'cycle';
 
   useEffect(() => {
     if (reduced) return;
-    if (index >= tactics.length) {
-      setStage('resolution');
-      return;
-    }
+    if (index >= tactics.length) return;
     const id = window.setTimeout(() => setIndex((i) => i + 1), cycleMs);
     return () => window.clearTimeout(id);
   }, [index, tactics.length, cycleMs, reduced]);
