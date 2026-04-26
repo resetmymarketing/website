@@ -13,13 +13,13 @@ vi.mock('framer-motion', async () => {
 });
 
 const SAMPLE = {
-  noise: ['One.', 'Two.', 'Three.'] as const,
-  headline: 'Clarity wins.',
+  noise: ['One.', 'Two.', 'Three.', 'Four.'] as const,
+  headline: 'One sentence. The one that fits you.',
   body: 'The Reset gives you the one direction that fits.',
 };
 
 describe('NoiseToSignal', () => {
-  it('renders every noise chip on the chaos side', () => {
+  it('renders every noise chip up to the available position slots', () => {
     const html = renderToStaticMarkup(
       <NoiseToSignal
         noise={SAMPLE.noise}
@@ -32,7 +32,7 @@ describe('NoiseToSignal', () => {
     });
   });
 
-  it('renders the resolution headline and body', () => {
+  it('renders the signal headline at full opacity from frame 1', () => {
     const html = renderToStaticMarkup(
       <NoiseToSignal
         noise={SAMPLE.noise}
@@ -40,11 +40,33 @@ describe('NoiseToSignal', () => {
         signalBody={SAMPLE.body}
       />,
     );
-    expect(html).toContain(SAMPLE.headline);
+    expect(html).toContain('One sentence.');
+    expect(html).toContain('The one that fits you.');
+  });
+
+  it('renders the body copy', () => {
+    const html = renderToStaticMarkup(
+      <NoiseToSignal
+        noise={SAMPLE.noise}
+        signalHeadline={SAMPLE.headline}
+        signalBody={SAMPLE.body}
+      />,
+    );
     expect(html).toContain(SAMPLE.body);
   });
 
-  it('still includes both columns under reduced motion', async () => {
+  it('italicizes the first sentence of the signal headline', () => {
+    const html = renderToStaticMarkup(
+      <NoiseToSignal
+        noise={SAMPLE.noise}
+        signalHeadline={SAMPLE.headline}
+        signalBody={SAMPLE.body}
+      />,
+    );
+    expect(html).toMatch(/<span class="italic"[^>]*>One sentence\.<\/span>/);
+  });
+
+  it('still renders signal under reduced motion', async () => {
     const fm = await import('framer-motion');
     vi.mocked(fm.useReducedMotion).mockReturnValueOnce(true);
     const html = renderToStaticMarkup(
@@ -54,8 +76,8 @@ describe('NoiseToSignal', () => {
         signalBody={SAMPLE.body}
       />,
     );
-    expect(html).toContain(SAMPLE.noise[0]);
-    expect(html).toContain(SAMPLE.headline);
+    expect(html).toContain('One sentence.');
+    expect(html).toContain(SAMPLE.body);
   });
 
   it('uses Pacific-50 background per spec', () => {
@@ -67,5 +89,17 @@ describe('NoiseToSignal', () => {
       />,
     );
     expect(html).toContain('bg-pacific-50');
+  });
+
+  it('applies Limeade strikethrough to the chips', () => {
+    const html = renderToStaticMarkup(
+      <NoiseToSignal
+        noise={SAMPLE.noise}
+        signalHeadline={SAMPLE.headline}
+        signalBody={SAMPLE.body}
+      />,
+    );
+    expect(html).toContain('line-through');
+    expect(html).toContain('var(--limeade-500)');
   });
 });
