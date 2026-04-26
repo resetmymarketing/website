@@ -52,3 +52,25 @@ export const reducedStaggerItem: Variants = {
   hidden: { opacity: 0 },
   show: { opacity: 1 },
 };
+
+/**
+ * Highlight stroke variants — used by <Highlight> component to animate an SVG
+ * path's strokeDashoffset from full (hidden) to 0 (revealed).
+ *
+ * The path is expected to be set up with stroke-dasharray equal to its total
+ * length, and initial strokeDashoffset equal to that length. Animating to 0
+ * draws the stroke on screen left-to-right.
+ */
+export const highlightStrokeVariants: Variants = {
+  hidden: { pathLength: 0, opacity: 0 },
+  show: {
+    pathLength: 1,
+    opacity: 1,
+    transition: { duration: 0.7, ease: [0.65, 0, 0.35, 1] },
+  },
+};
+
+export const reducedHighlightStrokeVariants: Variants = {
+  hidden: { pathLength: 1, opacity: 1 },
+  show: { pathLength: 1, opacity: 1 },
+};
