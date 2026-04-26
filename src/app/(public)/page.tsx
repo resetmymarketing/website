@@ -36,9 +36,9 @@ export default function HomePage() {
       <SunArc size={140} />
 
       {/* === Section 1: Hero (Chapter 01 — "The Noise") === */}
-      <section className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-pacific-500 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+      <section className="relative overflow-hidden bg-pacific-500 px-4 pt-12 pb-24 sm:px-6 lg:px-8 lg:pt-20 lg:pb-32">
         <StripeDivider color="lemonade" className="mb-10" />
-        <div className="relative z-10 mx-auto w-full max-w-6xl">
+        <div className="relative z-10 mx-auto max-w-6xl">
           <p
             className="text-xs font-semibold uppercase tracking-widest text-lemonade-300"
             style={{ fontFamily: 'var(--font-inter)' }}
