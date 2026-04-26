@@ -5,7 +5,8 @@ import { SunBadge } from '@/components/brand/SunBadge';
 import { StripeDivider } from '@/components/brand/StripeDivider';
 import { StrikethroughCycler } from '@/components/motion/StrikethroughCycler';
 import { SunArc } from '@/components/motion/SunArc';
-import { HERO_COPY } from '@/lib/copy/home';
+import { NoiseToSignal } from '@/components/motion/NoiseToSignal';
+import { HERO_COPY, NOISE_TO_SIGNAL_COPY } from '@/lib/copy/home';
 
 export default function HomePage() {
   return (
@@ -63,22 +64,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Tension statement — big editorial type */}
-      <section className="px-4 py-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex items-start gap-6">
-            <span className="hidden text-7xl font-bold leading-none text-brand-200 sm:block">&ldquo;</span>
-            <div>
-              <h2 className="text-2xl font-bold leading-relaxed text-brand-800 sm:text-3xl lg:text-4xl">
-                You have been posting, tweaking, second-guessing. Maybe you hired someone who
-                did not quite get it. The Marketing Reset gives you one focused session to
-                cut through the noise.
-              </h2>
-              <div className="mt-8 h-1 w-16 rounded-full bg-sage-500" />
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* === Section 4: Noise to Signal (pinned) === */}
+      <NoiseToSignal
+        noise={NOISE_TO_SIGNAL_COPY.noiseChips}
+        signalHeadline={NOISE_TO_SIGNAL_COPY.signalHeadline}
+        signalBody={NOISE_TO_SIGNAL_COPY.signalBody}
+      />
 
       {/* What you walk away with — staggered, not grid */}
       <section className="bg-brand-50 px-4 py-24 sm:px-6 lg:px-8">
