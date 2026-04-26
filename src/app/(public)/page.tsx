@@ -1,6 +1,6 @@
-import Image from 'next/image';
 import { ButtonLink } from '@/components/ui/button-link';
 import { ArrowRight } from 'lucide-react';
+import { Highlight } from '@/components/motion/Highlight';
 import { SunBadge } from '@/components/brand/SunBadge';
 import { StripeDivider } from '@/components/brand/StripeDivider';
 import { StrikethroughCycler } from '@/components/motion/StrikethroughCycler';
@@ -9,9 +9,25 @@ import { NoiseToSignal } from '@/components/motion/NoiseToSignal';
 import { AudienceMosaic } from '@/components/motion/AudienceMosaic';
 import {
   HERO_COPY,
+  WHO_THIS_IS_FOR_COPY,
+  THREE_SHIFTS_COPY,
   NOISE_TO_SIGNAL_COPY,
   AUDIENCE_MOSAIC_COPY,
+  FINAL_CTA_COPY,
 } from '@/lib/copy/home';
+
+const TAG_BG: Record<'pacific' | 'limeade' | 'lemonade' | 'lapis', string> = {
+  pacific: 'bg-pacific-400 text-white',
+  limeade: 'bg-limeade-400 text-lapis-800',
+  lemonade: 'bg-lemonade-400 text-lapis-800',
+  lapis: 'bg-lapis-500 text-white',
+};
+
+const PILLAR_NUMBER_COLOR: Record<'lemonade' | 'limeade' | 'lime', string> = {
+  lemonade: 'text-lemonade-400',
+  limeade: 'text-limeade-500',
+  lime: 'text-lime-500',
+};
 
 export default function HomePage() {
   return (
@@ -19,7 +35,7 @@ export default function HomePage() {
       {/* Ambient sun arc — traverses the page on scroll */}
       <SunArc size={140} />
 
-      {/* === Section 1: Hero (Chapter 01) === */}
+      {/* === Section 1: Hero (Chapter 01 — "The Noise") === */}
       <section className="relative overflow-hidden bg-pacific-500 px-4 pt-12 pb-24 sm:px-6 lg:px-8 lg:pt-20 lg:pb-32">
         <StripeDivider color="lemonade" className="mb-10" />
         <div className="relative z-10 mx-auto max-w-6xl">
@@ -69,56 +85,94 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* === Section 4: Noise to Signal (pinned) === */}
+      {/* === Section 2: Who this is for (Oat band) === */}
+      <section className="bg-oat-200 px-4 py-24 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <p
+            className="text-xs font-semibold uppercase tracking-widest text-lime-700"
+            style={{ fontFamily: 'var(--font-inter)' }}
+          >
+            {WHO_THIS_IS_FOR_COPY.eyebrow}
+          </p>
+          <h2
+            className="mt-3 max-w-3xl text-3xl leading-tight text-lapis-700 sm:text-4xl lg:text-5xl"
+            style={{ fontFamily: 'var(--font-fraunces)' }}
+          >
+            You love the work. You{' '}
+            <span className="italic">
+              <Highlight color="lemonade">don&rsquo;t love</Highlight>
+            </span>{' '}
+            figuring out marketing alone.
+          </h2>
+          <p
+            className="mt-6 max-w-2xl text-base text-lapis-800"
+            style={{ fontFamily: 'var(--font-inter)' }}
+          >
+            {WHO_THIS_IS_FOR_COPY.body}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {WHO_THIS_IS_FOR_COPY.tags.map((tag) => (
+              <span
+                key={tag.label}
+                className={`inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold ${TAG_BG[tag.color]}`}
+                style={{ fontFamily: 'var(--font-inter)' }}
+              >
+                {tag.label}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* === Section 3: Three shifts (Pacific pillar grid) === */}
+      <section className="bg-pacific-500 px-4 py-24 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <StripeDivider color="lemonade" className="mb-8" />
+          <p
+            className="text-xs font-semibold uppercase tracking-widest text-lemonade-300"
+            style={{ fontFamily: 'var(--font-inter)' }}
+          >
+            {THREE_SHIFTS_COPY.eyebrow}
+          </p>
+          <h2
+            className="mt-3 max-w-3xl text-3xl leading-tight text-white sm:text-4xl lg:text-5xl"
+            style={{ fontFamily: 'var(--font-fraunces)' }}
+          >
+            {THREE_SHIFTS_COPY.headline}
+          </h2>
+          <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-3">
+            {THREE_SHIFTS_COPY.pillars.map((pillar) => (
+              <div key={pillar.number}>
+                <span
+                  className={`text-6xl font-bold ${PILLAR_NUMBER_COLOR[pillar.numberColor]}`}
+                  style={{ fontFamily: 'var(--font-fraunces)' }}
+                >
+                  {pillar.number}
+                </span>
+                <h3
+                  className="mt-4 text-xl text-white"
+                  style={{ fontFamily: 'var(--font-fraunces)' }}
+                >
+                  {pillar.title}
+                </h3>
+                <p
+                  className="mt-2 text-pacific-50"
+                  style={{ fontFamily: 'var(--font-inter)' }}
+                >
+                  {pillar.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* === Section 4: Noise to Signal (pinned scene) === */}
       <NoiseToSignal
         noise={NOISE_TO_SIGNAL_COPY.noiseChips}
         signalHeadline={NOISE_TO_SIGNAL_COPY.signalHeadline}
         signalBody={NOISE_TO_SIGNAL_COPY.signalBody}
       />
-
-      {/* What you walk away with — staggered, not grid */}
-      <section className="bg-brand-50 px-4 py-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <p className="text-sm font-medium uppercase tracking-widest text-brand-700">
-            What You Walk Away With
-          </p>
-          <h2 className="mt-2 text-3xl font-bold text-brand-800">
-            Clarity, strategy, and a clear next step.
-          </h2>
-
-          <div className="mt-16 space-y-16 lg:space-y-0 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-16">
-            {/* Item 1 — spans left side */}
-            <div className="lg:col-span-5">
-              <span className="text-5xl font-bold text-brand-200">01</span>
-              <h3 className="mt-3 text-xl font-semibold text-brand-800">Clarity on Your Message</h3>
-              <p className="mt-2 text-warm-800">
-                Know exactly who you are talking to, what to say, and how to stand out
-                without sounding like everyone else.
-              </p>
-            </div>
-
-            {/* Item 2 — offset right */}
-            <div className="lg:col-span-5 lg:col-start-7 lg:pt-12">
-              <span className="text-5xl font-bold text-sage-200">02</span>
-              <h3 className="mt-3 text-xl font-semibold text-brand-800">A Strategy That Fits</h3>
-              <p className="mt-2 text-warm-800">
-                No cookie-cutter templates. You get a marketing direction built around your
-                strengths, your time, and your real capacity.
-              </p>
-            </div>
-
-            {/* Item 3 — back to center-left */}
-            <div className="lg:col-span-5 lg:col-start-2">
-              <span className="text-5xl font-bold text-brand-200">03</span>
-              <h3 className="mt-3 text-xl font-semibold text-brand-800">A Clear Next Step</h3>
-              <p className="mt-2 text-warm-800">
-                Walk away knowing what to do first, what to stop doing, and where your
-                marketing energy should actually go.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* === Section 5: Audience Mosaic === */}
       <AudienceMosaic
@@ -127,19 +181,28 @@ export default function HomePage() {
         headline={AUDIENCE_MOSAIC_COPY.headline}
       />
 
-      {/* CTA — bold, dark */}
-      <section className="bg-brand-800 px-4 py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Ready to get honest about your marketing?
+      {/* === Section 6: Final CTA (Lapis + Lemonade pill) === */}
+      <section className="bg-lapis-700 px-4 py-24 text-center sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-3xl">
+          <h2
+            className="text-3xl text-white sm:text-4xl lg:text-5xl"
+            style={{ fontFamily: 'var(--font-fraunces)' }}
+          >
+            {FINAL_CTA_COPY.headline}
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-brand-200">
-            This is not a course. It is a single, focused engagement
-            designed to give you the clarity you have been looking for.
+          <p
+            className="mt-4 text-lg text-pacific-100"
+            style={{ fontFamily: 'var(--font-inter)' }}
+          >
+            {FINAL_CTA_COPY.body}
           </p>
-          <div className="mt-8">
-            <ButtonLink href="/contact" size="lg">
-              Let us Talk
+          <div className="mt-10">
+            <ButtonLink
+              href={FINAL_CTA_COPY.cta.href}
+              size="lg"
+              className="rounded-full !bg-lemonade-400 !text-lapis-800 hover:!bg-lemonade-500"
+            >
+              {FINAL_CTA_COPY.cta.label}
               <ArrowRight className="ml-2 h-4 w-4" />
             </ButtonLink>
           </div>
