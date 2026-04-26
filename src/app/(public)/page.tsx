@@ -36,7 +36,7 @@ export default function HomePage() {
       <SunArc size={140} />
 
       {/* === Section 1: Hero (Chapter 01 — "The Noise") === */}
-      <section className="relative overflow-hidden bg-pacific-500 px-4 pt-12 pb-24 sm:px-6 lg:px-8 lg:pt-20 lg:pb-32">
+      <section className="relative overflow-hidden bg-pacific-500 px-4 pt-8 pb-16 sm:px-6 lg:px-8 lg:pt-14 lg:pb-20">
         <StripeDivider color="lemonade" className="mb-10" />
         <div className="relative z-10 mx-auto max-w-6xl">
           <p
