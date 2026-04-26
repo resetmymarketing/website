@@ -36,7 +36,7 @@ export default function HomePage() {
       <SunArc size={140} />
 
       {/* === Section 1: Hero (Chapter 01 — "The Noise") === */}
-      <section className="relative overflow-hidden bg-pacific-500 px-4 pt-8 pb-16 sm:px-6 lg:px-8 lg:pt-14 lg:pb-20">
+      <section className="relative overflow-hidden bg-pacific-500 px-4 pt-4 pb-10 sm:px-6 lg:px-8 lg:pt-8 lg:pb-12">
         <StripeDivider color="lemonade" className="mb-10" />
         <div className="relative z-10 mx-auto max-w-6xl">
           <p
@@ -86,7 +86,7 @@ export default function HomePage() {
       </section>
 
       {/* === Section 2: Who this is for (Oat band) === */}
-      <section className="relative z-10 isolate bg-oat-200 px-4 py-24 sm:px-6 lg:px-8">
+      <section className="relative z-10 isolate bg-oat-200 px-4 pt-16 pb-[20vh] sm:px-6 lg:px-8 lg:pt-24">
         <div className="mx-auto max-w-6xl">
           <p
             className="text-xs font-semibold uppercase tracking-widest text-lime-700"
