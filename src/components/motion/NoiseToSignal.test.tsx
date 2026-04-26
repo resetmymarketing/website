@@ -64,9 +64,10 @@ describe('NoiseToSignal', () => {
         signalBody={SAMPLE.body}
       />,
     );
-    expect(html).toMatch(/<span class="inline-block italic"[^>]*>One/);
-    expect(html).toMatch(/<span class="inline-block italic"[^>]*>sentence\./);
-    expect(html).toMatch(/<span class="inline-block "[^>]*>The/);
+    expect(html).toMatch(/<span class="[^"]*\bitalic\b[^"]*"[^>]*>One/);
+    expect(html).toMatch(/<span class="[^"]*\bitalic\b[^"]*"[^>]*>sentence\./);
+    // Words after the first sentence should NOT have italic
+    expect(html).toMatch(/<span class="(?:(?!italic)[^"])*"[^>]*>The/);
   });
 
   it('still renders signal under reduced motion', async () => {

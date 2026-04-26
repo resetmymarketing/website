@@ -127,7 +127,7 @@ function SignalWord({ word, index, play }: SignalWordProps) {
 
   return (
     <motion.span
-      className={`inline-block ${word.italic ? 'italic' : ''}`}
+      className={`mr-[0.28em] inline-block ${word.italic ? 'italic' : ''}`}
       initial={{ opacity: 0, y: 8 }}
       animate={play ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
       transition={{
@@ -137,7 +137,6 @@ function SignalWord({ word, index, play }: SignalWordProps) {
       }}
     >
       {word.text}
-      {' '}
     </motion.span>
   );
 }
@@ -177,21 +176,21 @@ export function NoiseToSignal({
       ref={ref}
       className="relative z-10 isolate flex min-h-screen items-center overflow-hidden bg-pacific-50 py-24"
     >
-      <div className="relative mx-auto h-[80vh] w-full max-w-5xl">
+      <div className="relative mx-auto h-[80vh] w-full max-w-7xl">
         {/* Always-laid-out signal stage. Words fade in word-by-word once
             the section enters view (or instantly under reduced motion). */}
         <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
           <h2
-            className="text-4xl leading-tight text-lapis-700 sm:text-5xl lg:text-6xl xl:text-7xl"
+            className="text-3xl leading-tight text-lapis-700 sm:text-4xl md:text-5xl lg:text-6xl lg:whitespace-nowrap"
             style={{ fontFamily: 'var(--font-fraunces)' }}
           >
             {reduced
               ? headlineWords.map((word, i) => (
                   <span
                     key={`${word.text}-${i}`}
-                    className={`inline-block ${word.italic ? 'italic' : ''}`}
+                    className={`mr-[0.28em] inline-block ${word.italic ? 'italic' : ''}`}
                   >
-                    {word.text}{' '}
+                    {word.text}
                   </span>
                 ))
               : headlineWords.map((word, i) => (
