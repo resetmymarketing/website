@@ -90,8 +90,28 @@
 
 ### What's In-Progress
 
-- **Nothing in-flight.** Production at `https://reset.builtbybas.com` is on `0bd26d1` (Next.js 16.2.3, consultation form redesign live, CVE GHSA-q4gf-8mx6-v5v3 patched). Working tree clean on local main.
-- **Next active initiative:** JawDrop public-site rebuild — spec at `docs/superpowers/specs/2026-04-12-jawdrop-rebrand-design.md`. Not started.
+- **Branch:** `feat/jawdrop-rebrand-2026` (off main `f401460`, never pushed)
+- **JawDrop rebrand Slice 1 complete** — design system foundation landed locally in 8 commits (see "JawDrop Rebrand Status" below). All quality gates green: type 0 / lint 0/0 / test 100/100 / build 28 routes.
+- **Production unchanged** at `https://reset.builtbybas.com` on `0bd26d1` (Next.js 16.2.3, consultation form redesign live, CVE GHSA-q4gf-8mx6-v5v3 patched). The rebrand branch will not deploy until all 8 slices pass staging review.
+
+### JawDrop Rebrand Status
+
+Spec: `docs/superpowers/specs/2026-04-12-jawdrop-rebrand-design.md`. Plans live in `docs/superpowers/plans/`.
+
+| Slice | Title | Status | Notes |
+|-------|-------|--------|-------|
+| 1 | Design System Foundation | **Complete** | Lemonade palette tokens (60 CSS vars + Tailwind bindings), Fraunces + Inter fonts via next/font, `<Highlight>` / `<SunBadge>` / `<StripeDivider>` components, `motion.ts` extension, dev-only CSP eval allowance, `/dev-slice-1-smoke` verification page. 8 commits: `b3de88c`, `f9e3362`, `041a0b7`, `0013031`, `1478b0b`, `b67c088`, `37fe5ed`, `38614c6`. |
+| 2 | Home — Chapter 01 "The Noise" | Not started | Hero with Strikethrough Cycler + Sun Arc start, Oat "Who this is for" band, Pacific pillar grid, Noise→Signal pinned scene, Audience Mosaic, Lapis CTA band. |
+| 3 | About — Chapter 02 "The Person" | Not started | Oat hero with Karli portrait, manifesto two-column spread, Limeade-tagged values grid, Audience Mosaic reuse, link CTA. |
+| 4 | How It Works — Chapter 03 "The Reset" | Not started | Pacific hero, vertical timeline, Plan Reveal climax, FAQ accordion, Lemonade pill CTA. |
+| 5 | Contact — Chapter 04 "The Invitation" | Not started | Full-viewport split, notebook-rule form lines, Lemonade pill submit. |
+| 6 | Get Started reskin — Chapter 05 "The Beginning" | Not started | Reskin-only on concierge + 6-step intake form. Zero structural change. |
+| 7 | Not Ready — Appendix | Not started | Single-column Oat page with Reset Button easter egg. |
+| 8 | Global Polish | Not started | Header/footer rebuild, 404 + error boundary reskin, BookPageNumber, ChapterTag, full Sun Arc wiring, accessibility + Lighthouse pass. |
+
+Additive approach: Lemonade tokens coexist with EcoTrust tokens. Per-chapter migration strips `bg-brand-*` / `text-warm-*` / `text-sage-*` references in slices 2-7. EcoTrust tokens removed entirely in Slice 8.
+
+Coexistence verified: existing public pages and dashboard render identically on the rebrand branch with EcoTrust styling intact.
 
 ### VPS Deployment (Completed 2026-03-15)
 
@@ -120,12 +140,12 @@
   sudo -u marketingreset env PATH=/usr/local/bin:/usr/bin:/bin HOME=/var/www/the-marketing-reset bash -c '<command>'
   ```
 
-### What's Next (updated 2026-04-25 end of Session 16)
+### What's Next (updated 2026-04-25 end of Session 17)
 
 **Immediate — top of next session:**
 
-1. **Branch `feat/jawdrop-rebrand-2026` off main** and start vertical slice 1 of the JawDrop public-site rebuild (palette tokens, Fraunces + Inter fonts, shadcn theme regen). Spec: `docs/superpowers/specs/2026-04-12-jawdrop-rebrand-design.md`. Six chapters + global shell, 8 signature motion moments (Framer-only, no GSAP/Lenis). Reskin-only on concierge/form (zero structural change to validation, schema, API, dashboard, auth, DB).
-2. **Quick fix LOW: strip `x-powered-by: Next.js` header.** One line in `next.config.ts`: `poweredByHeader: false`. Verified leaked publicly via `curl -sI https://reset.builtbybas.com/`. Fold into the rebrand branch slice 1 or its own micro-PR.
+1. **Slice 2 — Home Chapter 01 "The Noise."** Plan to be drafted (`docs/superpowers/plans/2026-04-25-jawdrop-slice-2-home.md`). Six sections: Pacific hero with Strikethrough Cycler + sun arc start, Oat "Who this is for" band, Pacific pillar grid, Noise→Signal pinned scene, Audience Mosaic, Lapis CTA band. New components: `<StrikethroughCycler>`, `<SunArc>` (ambient), `<NoiseToSignal>`, `<AudienceMosaic>`, `<AudienceTile>`. Dev server + visual companion stay live for slice-by-slice smoke verification.
+2. **Quick fix LOW: strip `x-powered-by: Next.js` header.** One line in `next.config.ts`: `poweredByHeader: false`. Verified leaked publicly via `curl -sI https://reset.builtbybas.com/`. Fold into Slice 2 commit or its own micro-PR on the rebrand branch.
 3. **Reconcile PM2 mode drift.** Live `pm2 list` shows mode `cluster`; HANDOFF history said "fork mode". Verify `ecosystem.config.cjs` declares which, fix doc or config so they agree.
 
 **Cross-project (still flagged from S15, no change):**
@@ -192,3 +212,4 @@
 | 2026-04-12 | 15 cont.| Started Phase 2a (catch VPS up 3 commits) -- BLOCKED by infra gaps. Discovered: (1) `marketingreset` SSH alias `github.com-resetmymarketing` is referenced in git remote but no keys / `.ssh/config` exist for the service user -- `git pull` fails; (2) deployed `ecosystem.config.cjs` is stripped vs repo (no NODE_ENV, no memory cap, no log paths); (3) cross-project read-only audit revealed portfolio-wide ecosystem drift plus a **leaked GitHub PAT on Colour Parlor's git remote (URGENT, revocation pending)**. Created SECURITY-AUDIT.md and added rollback runbook to DEPLOY.md. O3 (dark mode) closed: light-only confirmed. New issues O4, O5, O6 logged. Updated ~/.claude/docs/vps-infrastructure.md with Portfolio Drift Audit appendix. No VPS writes. |
 | 2026-04-12 | 15 fix  | Fixed O4, O5, and the Colour Parlor PAT leak (F12, F13, F14). Generated per-user ed25519 deploy keys for marketingreset and colourparlor. Added as read-only deploy keys on respective GitHub repos. Wrote ~/.ssh/config aliases. Swapped Colour Parlor remote from HTTPS-with-token to SSH alias. Bas revoked old GitHub deploy keys. Archived legacy root-owned keys to /root/.ssh/archive-2026-04-12/. Executed Phase 2a: stashed stripped ecosystem, ff-pulled main 1d9db89 -> 9ba05e1 (Next 16.1.6 -> 16.1.7 patch + 9 transitive vuln patches + Dependabot), pnpm install --frozen-lockfile, pnpm build, pm2 delete+start with comprehensive ecosystem (NODE_ENV=production, 250M cap, log paths), pm2 save. Smoke test: localhost:3007 and <https://reset.builtbybas.com> both return 200. Last Known-Good updated in DEPLOY.md. |
 | 2026-04-25 | 16      | Pre-redesign cleanup + Phase 2b deployed. Visual-verified consultation form on dev. Two cleanup commits on feat branch (governance + docs). Merged feat/consultation-form-redesign -> main (--no-ff `a56c997`), pushed. Phase 2b: branched fix/next-16.2.3-cve-patch, surgical bump (rejected Dependabot multi-major bundles), local quality gates clean (type 0, lint 0/0, test 83/83, build 28 routes), VPS staged at /tmp/the-marketing-reset-debug/ port 3099 -- Next 16.2.3 Ready in 218ms, 8 routes smoke 200/404. Killed staging via fuser -k. Merged fix -> main (--no-ff `0bd26d1`), pushed. Production deploy: VPS git pull, CI=true pnpm install --frozen-lockfile (34.3s), pnpm build, pm2 restart -- Ready in 231ms on Next 16.2.3. Smoke <https://reset.builtbybas.com/> + /get-started + /not-ready + /about all 200. O6 closed (CVE patched). New findings: x-powered-by header leaked (LOW), PM2 mode drift cluster vs docs fork. .gitignore tightened: .mcp.json.bak*, .superpowers/, tmp/, public/mockup.html. |
+| 2026-04-25 | 17      | JawDrop rebrand kickoff. Committed Session 16 governance closeout on main (`f401460`, pushed). Branched `feat/jawdrop-rebrand-2026`. Started dev server (port 3002) + visual companion server (port 55379) for live mockup-before-build flow with Bas. Wrote Slice 1 plan (`docs/superpowers/plans/2026-04-25-jawdrop-slice-1-design-system.md`). Executed all 8 tasks: Lemonade palette (60 CSS vars + Tailwind bindings), Fraunces + Inter via next/font, motion.ts extended with `highlightStrokeVariants`, `<Highlight>` / `<SunBadge>` / `<StripeDivider>` components (17 new tests via `renderToStaticMarkup` to fit Node-env vitest), dev-only CSP `'unsafe-eval'` allowance for React error overlay, `/dev-slice-1-smoke` verification page. Adapted spec to Tailwind v4 reality (CSS-first @theme block, no tailwind.config.ts). Quality gates: type 0 / lint 0/0 / test 100/100 / build 28 routes. Branch never pushed; production unchanged. 8 commits on rebrand branch ending `38614c6`. Bas signed off Slice 1 visual smoke. |
