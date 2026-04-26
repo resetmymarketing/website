@@ -1,48 +1,61 @@
 import Image from 'next/image';
 import { ButtonLink } from '@/components/ui/button-link';
 import { ArrowRight } from 'lucide-react';
+import { SunBadge } from '@/components/brand/SunBadge';
+import { StripeDivider } from '@/components/brand/StripeDivider';
+import { StrikethroughCycler } from '@/components/motion/StrikethroughCycler';
+import { HERO_COPY } from '@/lib/copy/home';
 
 export default function HomePage() {
   return (
     <div>
-      {/* Hero — full-bleed image with overlay */}
-      <section className="relative min-h-[70vh] overflow-hidden">
-        <Image
-          src="/images/strategy-session.jpg"
-          alt="Two people having a focused strategy conversation over coffee and notebooks at a cafe"
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-brand-900/70" />
-        <div className="relative z-10 flex min-h-[70vh] items-end px-4 pb-16 sm:px-6 lg:px-8">
-          <div className="mx-auto w-full max-w-6xl">
-            <p className="text-sm font-medium uppercase tracking-widest text-brand-200">
-              Strategic Marketing Clarity
-            </p>
-            <h1 className="mt-3 max-w-3xl text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
-              Your marketing should reflect the quality of what you actually do.
-            </h1>
-            <p className="mt-6 max-w-xl text-lg text-brand-100">
-              A one-time strategic clarity service for service-based businesses that need to
-              realign their messaging, brand presence, and client attraction strategy.
-            </p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <ButtonLink href="/get-started" size="lg">
-                Start Your Reset
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </ButtonLink>
-              <ButtonLink
-                href="/how-it-works"
-                variant="outline"
-                size="lg"
-                className="border-white/30 bg-transparent text-white hover:bg-white/10"
-              >
-                See How It Works
-              </ButtonLink>
-            </div>
+      {/* === Section 1: Hero (Chapter 01) === */}
+      <section className="relative overflow-hidden bg-pacific-500 px-4 pt-12 pb-24 sm:px-6 lg:px-8 lg:pt-20 lg:pb-32">
+        <StripeDivider color="lemonade" className="mb-10" />
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <p
+            className="text-xs font-semibold uppercase tracking-widest text-lemonade-300"
+            style={{ fontFamily: 'var(--font-inter)' }}
+          >
+            {HERO_COPY.eyebrow}
+          </p>
+          <h1
+            className="mt-6 max-w-4xl text-4xl leading-tight text-white sm:text-6xl lg:text-7xl"
+            style={{ fontFamily: 'var(--font-fraunces)' }}
+          >
+            <StrikethroughCycler
+              tactics={HERO_COPY.cyclerTactics}
+              resolution={HERO_COPY.resolution}
+              resolutionEmphasis={HERO_COPY.resolutionEmphasis}
+            />
+          </h1>
+          <p
+            className="mt-8 max-w-xl text-lg text-pacific-50"
+            style={{ fontFamily: 'var(--font-inter)' }}
+          >
+            {HERO_COPY.subhead}
+          </p>
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <ButtonLink
+              href={HERO_COPY.ctaPrimary.href}
+              size="lg"
+              className="rounded-full !bg-lemonade-400 !text-lapis-800 hover:!bg-lemonade-500"
+            >
+              {HERO_COPY.ctaPrimary.label}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </ButtonLink>
+            <ButtonLink
+              href={HERO_COPY.ctaSecondary.href}
+              variant="outline"
+              size="lg"
+              className="border-white/40 bg-transparent text-white hover:bg-white/10"
+            >
+              {HERO_COPY.ctaSecondary.label}
+            </ButtonLink>
           </div>
+        </div>
+        <div className="pointer-events-none absolute -top-12 -right-12 sm:-top-20 sm:-right-20">
+          <SunBadge size={260} />
         </div>
       </section>
 
