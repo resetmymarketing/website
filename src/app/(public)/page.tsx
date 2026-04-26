@@ -6,7 +6,12 @@ import { StripeDivider } from '@/components/brand/StripeDivider';
 import { StrikethroughCycler } from '@/components/motion/StrikethroughCycler';
 import { SunArc } from '@/components/motion/SunArc';
 import { NoiseToSignal } from '@/components/motion/NoiseToSignal';
-import { HERO_COPY, NOISE_TO_SIGNAL_COPY } from '@/lib/copy/home';
+import { AudienceMosaic } from '@/components/motion/AudienceMosaic';
+import {
+  HERO_COPY,
+  NOISE_TO_SIGNAL_COPY,
+  AUDIENCE_MOSAIC_COPY,
+} from '@/lib/copy/home';
 
 export default function HomePage() {
   return (
@@ -115,38 +120,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Image break — notebook, edge-to-edge on left */}
-      <section className="lg:grid lg:grid-cols-2">
-        <div className="relative aspect-[4/3] lg:aspect-auto">
-          <Image
-            src="/images/notebook-pen.jpg"
-            alt="An open lined notebook with a pen resting on it, ready for planning"
-            fill
-            className="object-cover"
-            sizes="(min-width: 1024px) 50vw, 100vw"
-          />
-        </div>
-        <div className="flex items-center px-4 py-16 sm:px-6 lg:px-12 lg:py-24">
-          <div className="max-w-xl">
-            <p className="text-sm font-medium uppercase tracking-widest text-brand-700">
-              How It Works
-            </p>
-            <h2 className="mt-2 text-3xl font-bold text-brand-800">
-              One engagement. No retainer. Just clarity.
-            </h2>
-            <p className="mt-4 text-warm-800">
-              You complete a consultation, we meet for a focused strategy session, and you
-              walk away with a personalized action plan. The whole process takes two to three weeks.
-            </p>
-            <div className="mt-8">
-              <ButtonLink href="/how-it-works" variant="outline" size="lg">
-                See the Full Process
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </ButtonLink>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* === Section 5: Audience Mosaic === */}
+      <AudienceMosaic
+        tiles={[...AUDIENCE_MOSAIC_COPY.tiles]}
+        eyebrow={AUDIENCE_MOSAIC_COPY.eyebrow}
+        headline={AUDIENCE_MOSAIC_COPY.headline}
+      />
 
       {/* CTA — bold, dark */}
       <section className="bg-brand-800 px-4 py-20 sm:px-6 lg:px-8">
