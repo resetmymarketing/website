@@ -98,6 +98,82 @@
   --chart-3: #729ECE;
   --chart-4: #FFA726;
   --chart-5: #379F40;
+
+  /* === LEMONADE PALETTE (JawDrop rebrand 2026-04-25) === */
+  /* Added alongside EcoTrust tokens. Migration to Lemonade-only happens
+     per-chapter; both palettes coexist during the rebrand. */
+
+  /* Lapis — text anchor, CTA bands, primary navy */
+  --lapis-50:  #eaeef6;
+  --lapis-100: #cdd6e7;
+  --lapis-200: #9aaccf;
+  --lapis-300: #6783b6;
+  --lapis-400: #45669c;
+  --lapis-500: #2D4670;
+  --lapis-600: #25395a;
+  --lapis-700: #1c2c44;
+  --lapis-800: #131e2f;
+  --lapis-900: #0a1119;
+
+  /* Pacific — hero backgrounds, secondary sections, links */
+  --pacific-50:  #eef4fb;
+  --pacific-100: #d3e2f1;
+  --pacific-200: #a7c5e3;
+  --pacific-300: #7ba8d4;
+  --pacific-400: #5B94C4;
+  --pacific-500: #4180b3;
+  --pacific-600: #346891;
+  --pacific-700: #28506f;
+  --pacific-800: #1c384e;
+  --pacific-900: #10202c;
+
+  /* Oat — primary warm background, alternating sections */
+  --oat-50:  #fbf8f1;
+  --oat-100: #f4ecd8;
+  --oat-200: #ebdcb4;
+  --oat-300: #DFCEB0;
+  --oat-400: #ccb98e;
+  --oat-500: #b8a06d;
+  --oat-600: #8f7a4f;
+  --oat-700: #6b5b3a;
+  --oat-800: #483d27;
+  --oat-900: #251f14;
+
+  /* Lemonade — CTAs, highlights, sun motif */
+  --lemonade-50:  #fffbe6;
+  --lemonade-100: #fdf3b8;
+  --lemonade-200: #fbe888;
+  --lemonade-300: #f9dc62;
+  --lemonade-400: #F5D547;
+  --lemonade-500: #e6c224;
+  --lemonade-600: #b89717;
+  --lemonade-700: #8a6f10;
+  --lemonade-800: #5c4a09;
+  --lemonade-900: #2e2504;
+
+  /* Limeade — block highlights on key words, accent tags */
+  --limeade-50:  #f5fae3;
+  --limeade-100: #e6f3b9;
+  --limeade-200: #cde683;
+  --limeade-300: #b8d959;
+  --limeade-400: #A8CC3E;
+  --limeade-500: #92b32f;
+  --limeade-600: #748f25;
+  --limeade-700: #576b1c;
+  --limeade-800: #3a4712;
+  --limeade-900: #1d2309;
+
+  /* Lime — dividers, quote marks, supporting typography accents */
+  --lime-50:  #f1f3e3;
+  --lime-100: #dde2bb;
+  --lime-200: #bbc783;
+  --lime-300: #98ac4e;
+  --lime-400: #7d942e;
+  --lime-500: #757F39;
+  --lime-600: #5d662d;
+  --lime-700: #464d22;
+  --lime-800: #2e3316;
+  --lime-900: #17190b;
 }
 
 
@@ -145,6 +221,73 @@
   --color-accent-orange: var(--accent-orange);
   --color-accent-orange-hover: var(--accent-orange-hover);
   --color-accent-orange-light: var(--accent-orange-light);
+
+  /* === LEMONADE PALETTE TAILWIND BINDINGS === */
+  --color-lapis-50:  var(--lapis-50);
+  --color-lapis-100: var(--lapis-100);
+  --color-lapis-200: var(--lapis-200);
+  --color-lapis-300: var(--lapis-300);
+  --color-lapis-400: var(--lapis-400);
+  --color-lapis-500: var(--lapis-500);
+  --color-lapis-600: var(--lapis-600);
+  --color-lapis-700: var(--lapis-700);
+  --color-lapis-800: var(--lapis-800);
+  --color-lapis-900: var(--lapis-900);
+
+  --color-pacific-50:  var(--pacific-50);
+  --color-pacific-100: var(--pacific-100);
+  --color-pacific-200: var(--pacific-200);
+  --color-pacific-300: var(--pacific-300);
+  --color-pacific-400: var(--pacific-400);
+  --color-pacific-500: var(--pacific-500);
+  --color-pacific-600: var(--pacific-600);
+  --color-pacific-700: var(--pacific-700);
+  --color-pacific-800: var(--pacific-800);
+  --color-pacific-900: var(--pacific-900);
+
+  --color-oat-50:  var(--oat-50);
+  --color-oat-100: var(--oat-100);
+  --color-oat-200: var(--oat-200);
+  --color-oat-300: var(--oat-300);
+  --color-oat-400: var(--oat-400);
+  --color-oat-500: var(--oat-500);
+  --color-oat-600: var(--oat-600);
+  --color-oat-700: var(--oat-700);
+  --color-oat-800: var(--oat-800);
+  --color-oat-900: var(--oat-900);
+
+  --color-lemonade-50:  var(--lemonade-50);
+  --color-lemonade-100: var(--lemonade-100);
+  --color-lemonade-200: var(--lemonade-200);
+  --color-lemonade-300: var(--lemonade-300);
+  --color-lemonade-400: var(--lemonade-400);
+  --color-lemonade-500: var(--lemonade-500);
+  --color-lemonade-600: var(--lemonade-600);
+  --color-lemonade-700: var(--lemonade-700);
+  --color-lemonade-800: var(--lemonade-800);
+  --color-lemonade-900: var(--lemonade-900);
+
+  --color-limeade-50:  var(--limeade-50);
+  --color-limeade-100: var(--limeade-100);
+  --color-limeade-200: var(--limeade-200);
+  --color-limeade-300: var(--limeade-300);
+  --color-limeade-400: var(--limeade-400);
+  --color-limeade-500: var(--limeade-500);
+  --color-limeade-600: var(--limeade-600);
+  --color-limeade-700: var(--limeade-700);
+  --color-limeade-800: var(--limeade-800);
+  --color-limeade-900: var(--limeade-900);
+
+  --color-lime-50:  var(--lime-50);
+  --color-lime-100: var(--lime-100);
+  --color-lime-200: var(--lime-200);
+  --color-lime-300: var(--lime-300);
+  --color-lime-400: var(--lime-400);
+  --color-lime-500: var(--lime-500);
+  --color-lime-600: var(--lime-600);
+  --color-lime-700: var(--lime-700);
+  --color-lime-800: var(--lime-800);
+  --color-lime-900: var(--lime-900);
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
