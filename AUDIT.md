@@ -11,13 +11,20 @@
 | Tests            | `npm run test`       | PASS   | 83/83 passing (was 62 on main)                |
 | Build            | `npm run build`      | PASS   | 28 routes (10 static, 15 dynamic, 3 API groups) |
 | E2E tests        | `npx playwright test`| WARN   | 30/31 passing (1 blocked by missing local DB) |
-| Dependency audit | `npm audit`          | WARN   | 4 moderate (dev-only, esbuild in drizzle-kit)  |
+| Dependency audit | `pnpm audit`         | WARN   | 10 vulns: 2 HIGH, 8 moderate (1 HIGH prod: Next.js DoS). See detail below. |
 
-### Vulnerability Detail
+### Vulnerability Detail (verified 2026-04-12)
 
-| Package | Severity | Path                       | Production Impact | Action                          |
-|---------|----------|----------------------------|-------------------|---------------------------------|
-| esbuild | Moderate | drizzle-kit > @esbuild-kit | None (dev-only)   | Monitor for drizzle-kit update  |
+| Package            | Severity | Path                                              | Production Impact                               | Action                              |
+|--------------------|----------|---------------------------------------------------|-------------------------------------------------|-------------------------------------|
+| next               | HIGH     | direct dep                                        | **YES** -- DoS via Server Components (<16.2.3)  | Bump 16.1.7 -> 16.2.3+ (staging req) |
+| vite               | HIGH     | dev (vitest runtime)                              | None -- dev server only                         | Bump vite 6.4.1 -> 6.4.2+           |
+| vite               | Moderate | dev                                               | None -- dev server only                         | Covered by above bump               |
+| esbuild            | Moderate | drizzle-kit > @esbuild-kit (dev)                  | None -- dev-only                                | Monitor for drizzle-kit update      |
+| hono (x2)          | Moderate | shadcn > @modelcontextprotocol/sdk (dev CLI)      | None -- shadcn CLI only, not bundled            | Upstream fix via shadcn update      |
+| @hono/node-server  | Moderate | shadcn > @modelcontextprotocol/sdk (dev CLI)      | None -- shadcn CLI only, not bundled            | Upstream fix via shadcn update      |
+
+**Deploy blocker:** Next.js 16.1.7 -> 16.2.3 is a minor bump patching a production DoS. Per 2026-04-12 Figaro incident, Next.js 16.1 -> 16.2 caused crash-loop in production (CSP middleware + Node 22 compat). **Must stage on VPS (`/tmp/the-marketing-reset-debug/` with manual `next start`) before touching production.**
 
 ## Issues Tracker
 
@@ -36,7 +43,9 @@
 |----|----------|----------|-------|-------|--------|
 | O1 | LOW | Test | E2E login error test fails -- login API hangs on DB pool connection. Local PostgreSQL running but marketing_reset DB may not exist locally. | S14 | Open |
 | O2 | LOW | Config | Turbopack crashes on dev machine. Playwright config uses --webpack fallback. | S14 | Workaround |
-| O3 | MEDIUM | UX | Dark mode toggle removed for testing. Needs decision: restore or keep light-only. | S13 | Awaiting decision |
+| O4 | HIGH | Infra | ~~marketingreset service user SSH deploy broken~~ | S15 | **CLOSED** -- see F12 |
+| O5 | MEDIUM | Infra | ~~stripped ecosystem.config.cjs deployed~~ | S15 | **CLOSED** -- see F13 |
+| O6 | HIGH | Security | Next.js 16.1.7 Server Components DoS CVE (GHSA-q4gf-8mx6-v5v3) in production. Fix = bump to 16.2.3. Minor bump on the same axis that crash-looped Figaro 2026-04-12 -- staging on VPS via `/tmp/the-marketing-reset-debug/` with manual `next start` required before production deploy. | S15 | Open |
 
 ### Fixed Issues
 
@@ -51,6 +60,11 @@
 | F7 | LOW      | Lint     | Unescaped quote entity in decorative span   | Replaced with &amp;ldquo; entity  | 5    |
 | F8 | LOW      | Type     | Zod v4 z.literal errorMap not supported      | Changed to error string param     | 6    |
 | F9 | MEDIUM   | Data     | q34 field name mismatch: validation used q34_no_shows_impact, form used q34_cancellation_impact | Aligned schema + test to form field name | 14 |
+| F10 | HIGH    | Security | Next.js 16.1.6 DoS (flatted, picomatch, path-to-regexp, brace-expansion CVEs)                   | Patched 9 of 10 transitive vulns on main  | (main branch, pre-S14) |
+| F11 | MEDIUM  | UX       | Dark mode toggle removed for testing -- needed decision                                         | Bas decision 2026-04-12: keep light-only (verified no dark mode artifacts remain in src) | 15 |
+| F12 | HIGH    | Infra    | O4: broken SSH deploy alias for marketingreset user                                             | Generated ed25519 keypair, added read-only deploy key on resetmymarketing/website, wrote ~/.ssh/config alias. Legacy root-owned key archived to /root/.ssh/archive-2026-04-12/. Revoked old GitHub deploy key. | 15 |
+| F13 | MEDIUM  | Infra    | O5: stripped ecosystem.config.cjs deployed                                                       | Pulled comprehensive repo version (NODE_ENV=production, 250M memory cap, log paths). PM2 delete+start + pm2 save. Verified node env=production in pm2 show. | 15 |
+| F14 | HIGH    | Security | Leaked GitHub PAT in cleartext on Colour Parlor's git remote URL (discovered during cross-project audit) | Generated ed25519 deploy key for colourparlor user, added on AlwaysinAllways/colourparlor, swapped remote to SSH alias, Bas revoked the leaked PAT. | 15 |
 
 ### Deferred Issues
 
@@ -84,7 +98,7 @@
 | .env.example exists                         | PASS    | Template with all required vars                |
 | No PII in logs                              | PASS    | No console.log in production code              |
 | PII encrypted at rest                       | PASS    | PostgreSQL deployed on VPS (Session 9)         |
-| Dependency audit clean                      | WARN    | 4 moderate dev-only vulnerabilities            |
+| Dependency audit clean                      | WARN    | 2 HIGH, 8 moderate. 1 HIGH is prod (Next.js 16.1.7 DoS, fix = 16.2.3 -- staging required) |
 | httpOnly session cookies                    | PASS    | Secure, SameSite=lax, httpOnly                 |
 | Password hashing                            | PASS    | bcrypt via bcryptjs                            |
 | RBAC roles enforced                         | PASS    | requireAuth/requireAdmin in auth.ts            |
@@ -161,3 +175,4 @@
 | 2026-03-07 | 6       | Feature | A  (9.0/10) | Claude  | Public intake form (48 Qs), /api/intake, content alignment, button routing |
 | 2026-04-10 | 12      | Review  | A  (9.0/10) | Claude + Karli | Consultation form question audit with Karli. No code changes -- planning only. |
 | 2026-04-11 | 14      | Audit   | A  (9.0/10) | Claude  | Fixed q34 field mismatch. Playwright config fixes (Turbopack crash, port). 83 unit tests, 30/31 E2E. Governance files updated. |
+| 2026-04-12 | 15      | Governance | A- (8.5/10) | Claude | Portfolio quality sweep. Updated CLAUDE.md (Eight->Twelve Pillars, Data Protection, pnpm). Refreshed vulnerability detail (10 vulns, 1 HIGH prod Next.js DoS). VPS divergence: 3 commits behind local main + 15 unmerged feat commits. Missing: SECURITY-AUDIT.md, rollback runbook in DEPLOY.md. |

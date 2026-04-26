@@ -57,3 +57,14 @@ image.png
 
 # DejaVu MCP config -- contains API keys, stay local
 .mcp.json
+.mcp.json.bak*
+
+# Superpowers tooling artifact -- local-only
+.superpowers/
+
+# Temporary/scratch files (per CLAUDE.md convention -- Bas handles cleanup)
+tmp/
+
+# Karli's working mockup -- kept local, not served by Next.js
+public/mockup.html
+
