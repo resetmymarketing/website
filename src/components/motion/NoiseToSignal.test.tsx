@@ -32,7 +32,7 @@ describe('NoiseToSignal', () => {
     });
   });
 
-  it('renders the signal headline at full opacity from frame 1', () => {
+  it('renders every word of the signal headline as a separate span', () => {
     const html = renderToStaticMarkup(
       <NoiseToSignal
         noise={SAMPLE.noise}
@@ -40,8 +40,9 @@ describe('NoiseToSignal', () => {
         signalBody={SAMPLE.body}
       />,
     );
-    expect(html).toContain('One sentence.');
-    expect(html).toContain('The one that fits you.');
+    ['One', 'sentence.', 'The', 'one', 'that', 'fits', 'you.'].forEach((word) => {
+      expect(html).toContain(word);
+    });
   });
 
   it('renders the body copy', () => {
@@ -55,7 +56,7 @@ describe('NoiseToSignal', () => {
     expect(html).toContain(SAMPLE.body);
   });
 
-  it('italicizes the first sentence of the signal headline', () => {
+  it('italicizes only the first sentence words', () => {
     const html = renderToStaticMarkup(
       <NoiseToSignal
         noise={SAMPLE.noise}
@@ -63,7 +64,9 @@ describe('NoiseToSignal', () => {
         signalBody={SAMPLE.body}
       />,
     );
-    expect(html).toMatch(/<span class="italic"[^>]*>One sentence\.<\/span>/);
+    expect(html).toMatch(/<span class="inline-block italic"[^>]*>One/);
+    expect(html).toMatch(/<span class="inline-block italic"[^>]*>sentence\./);
+    expect(html).toMatch(/<span class="inline-block "[^>]*>The/);
   });
 
   it('still renders signal under reduced motion', async () => {
@@ -76,7 +79,7 @@ describe('NoiseToSignal', () => {
         signalBody={SAMPLE.body}
       />,
     );
-    expect(html).toContain('One sentence.');
+    expect(html).toContain('One');
     expect(html).toContain(SAMPLE.body);
   });
 
@@ -91,7 +94,7 @@ describe('NoiseToSignal', () => {
     expect(html).toContain('bg-pacific-50');
   });
 
-  it('applies Limeade strikethrough to the chips', () => {
+  it('renders a Limeade strike bar overlaid on each chip', () => {
     const html = renderToStaticMarkup(
       <NoiseToSignal
         noise={SAMPLE.noise}
@@ -99,7 +102,9 @@ describe('NoiseToSignal', () => {
         signalBody={SAMPLE.body}
       />,
     );
-    expect(html).toContain('line-through');
-    expect(html).toContain('var(--limeade-500)');
+    expect(html).toContain('bg-limeade-500');
+    // One strike bar per chip
+    const strikeMatches = html.match(/bg-limeade-500/g) ?? [];
+    expect(strikeMatches.length).toBeGreaterThanOrEqual(SAMPLE.noise.length);
   });
 });
