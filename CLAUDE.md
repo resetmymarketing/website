@@ -21,7 +21,7 @@
 | Auth | Custom (httpOnly cookies, bcrypt, RBAC) |
 | Validation | Zod (every boundary) |
 | Testing | Vitest (unit) + Playwright (E2E) |
-| Package Manager | npm |
+| Package Manager | pnpm (switched from npm Session 9 for VPS deploy) |
 | Linting | ESLint + Prettier |
 
 **Changing any layer requires documented justification in HANDOFF.md and explicit user approval.**
@@ -35,16 +35,28 @@
 - `src/components/` - Reusable components
 - `drizzle/` - Database migrations
 
-## Eight Pillars (Non-Negotiable)
+## Twelve Pillars (Non-Negotiable)
 
-1. **Security Minded** - Can this be exploited?
-2. **Structure** - Can someone else pick this up tomorrow?
-3. **Performance** - Does this respect the user's time and device?
-4. **Inclusive** - Can everyone use this?
-5. **Non-Bias** - Does this assume or exclude?
-6. **UX Minded** - Does this feel intentional and clear?
-7. **Universal Design** - Does this work for the widest range of people?
-8. **R3S** - What happens when something fails?
+1. **Security** -- Can this be exploited?
+2. **Reliability** -- Does this work every time, under real conditions?
+3. **Accessibility** -- Can everyone use this?
+4. **Modularity** -- Can this be changed without breaking everything else?
+5. **Readability** -- Can a new developer understand this immediately?
+6. **Maintainability** -- Will this still be easy to work on in two years?
+7. **Observability** -- Can we see what is happening inside?
+8. **Performance** -- Does this respect the user's time and device?
+9. **Redundancy** -- What if one part goes down?
+10. **Recovery** -- How fast can we get back to working?
+11. **Tested & Verified** -- Is every feature proven to work?
+12. **Documented** -- Can someone understand this without asking?
+
+## Data Protection (Non-Negotiable)
+
+- No deleting, removing, or overwriting ANY file without Bas's explicit permission
+- No running scripts that delete files without a dry-run first
+- No touching files in `~/.claude/projects/`, `.env`, or credentials
+- Always move to backup instead of deleting
+- Always show what will be affected before any bulk operation
 
 ## Conflict Resolution
 
@@ -71,16 +83,16 @@
 
 ## Session Protocol
 
-**Start:** Read HANDOFF.md, AUDIT.md, ProjectHealth.md. Run tests. State understanding.
-**During:** Follow pillars. Mark todos. Log issues in AUDIT.md. Test before/after.
-**End:** Update HANDOFF.md, AUDIT.md, ProjectHealth.md. Run quality gates. Recommend next steps.
+**Start:** Read HANDOFF.md, AUDIT.md, ProjectHealth.md, MEMORY.md. Ask before running tests. State understanding.
+**During:** Follow pillars. Mark todos. Log issues in AUDIT.md. Test before/after. Dry-run before any destructive operation.
+**End:** Update HANDOFF.md, AUDIT.md, ProjectHealth.md. Run quality gates (show raw output). Write `~/.claude/docs/LastStatusReport/the-marketing-reset.md` (full granular snapshot). Recommend next steps.
 
 ## Quality Gates (All Must Pass)
 
-1. `npm run type-check` - 0 errors
-2. `npm run lint` - 0 errors
-3. `npm run test` - All passing
-4. `npm run build` - 0 errors
+1. `pnpm type-check` - 0 errors
+2. `pnpm lint` - 0 errors
+3. `pnpm test` - All passing (83 unit)
+4. `pnpm build` - 0 errors
 
 ## Key Files
 

@@ -2,7 +2,6 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
 
 /* === ECOTRUST DESIGN TOKENS === */
 
@@ -101,87 +100,6 @@
   --chart-5: #379F40;
 }
 
-/* === DARK MODE === */
-
-.dark {
-  --brand-50: #112d47;
-  --brand-100: #193e60;
-  --brand-200: #1F4E79;
-  --brand-300: #2d6295;
-  --brand-400: #4a7eb5;
-  --brand-500: #729ECE;
-  --brand-600: #94BDE4;
-  --brand-700: #b3d1ee;
-  --brand-800: #d9e6f2;
-  --brand-900: #f0f5fa;
-
-  --sage-50: #1b5e20;
-  --sage-100: #2e7d32;
-  --sage-200: #379F40;
-  --sage-300: #43a047;
-  --sage-400: #4CAF50;
-  --sage-500: #72D17A;
-  --sage-600: #8ecc87;
-  --sage-700: #b8dfb3;
-  --sage-800: #dcefd9;
-  --sage-900: #f0f9f0;
-
-  --warm-50: #1a2633;
-  --warm-100: #263545;
-  --warm-200: #374758;
-  --warm-300: #4e5d6e;
-  --warm-400: #6b7a8d;
-  --warm-500: #9aa5b4;
-  --warm-600: #cdd5df;
-  --warm-700: #e4e9ef;
-  --warm-800: #f5f7fa;
-  --warm-900: #FCFDFE;
-
-  --accent-orange: #FFB74D;
-  --accent-orange-hover: #FFA726;
-  --accent-orange-light: #4a3520;
-
-  --background: #1F4E79;
-  --foreground: #FCFDFE;
-  --muted: #193e60;
-  --muted-foreground: #94BDE4;
-  --border: #2d6295;
-  --input: #2d6295;
-  --input-border: #2d6295;
-  --ring: #94BDE4;
-
-  --primary: #72D17A;
-  --primary-foreground: #000000;
-  --secondary: #193e60;
-  --secondary-foreground: #FCFDFE;
-  --accent: #193e60;
-  --accent-foreground: #f0f5fa;
-  --card: #193e60;
-  --card-foreground: #FCFDFE;
-  --popover: #193e60;
-  --popover-foreground: #FCFDFE;
-  --destructive: #ef5350;
-
-  --status-ontrack: #72D17A;
-  --status-upcoming: #FFB74D;
-  --status-overdue: #ef5350;
-  --status-complete: #8ecc87;
-
-  --sidebar: #112d47;
-  --sidebar-foreground: #FCFDFE;
-  --sidebar-primary: #94BDE4;
-  --sidebar-primary-foreground: #112d47;
-  --sidebar-accent: #193e60;
-  --sidebar-accent-foreground: #FCFDFE;
-  --sidebar-border: #1F4E79;
-  --sidebar-ring: #94BDE4;
-
-  --chart-1: #94BDE4;
-  --chart-2: #72D17A;
-  --chart-3: #729ECE;
-  --chart-4: #FFB74D;
-  --chart-5: #8ecc87;
-}
 
 @theme inline {
   --color-background: var(--background);

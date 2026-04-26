@@ -11,7 +11,6 @@ import {
   ClipboardList,
   LogOut,
 } from 'lucide-react';
-import { ThemeToggle } from '@/components/theme-toggle';
 
 const navItems = [
   { href: '/dashboard', label: 'Overview', icon: LayoutDashboard },
@@ -66,10 +65,6 @@ export function DashboardSidebar() {
       </nav>
 
       <div className="border-t border-sidebar-border px-3 py-4 space-y-1">
-        <div className="flex items-center justify-between px-3">
-          <span className="text-xs text-warm-400">Theme</span>
-          <ThemeToggle />
-        </div>
         <Button
           variant="ghost"
           className="w-full justify-start gap-3 text-sm text-warm-500 hover:text-warm-700"

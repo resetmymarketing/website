@@ -90,21 +90,72 @@
 
 ### What's In-Progress
 
-- Nothing currently in progress
+- **Consultation form redesign** -- branch `feat/consultation-form-redesign` (15 commits, unpushed)
+  - All Karli-approved changes from Session 12 have been IMPLEMENTED:
+    - Concierge rewritten as 7-screen flow (was 6): welcome, C1 with Other, C2, C3 with 7th option, C4 multi-select, summary builder, C5 readiness qualifier
+    - Consultation form rewritten with streamlined questions: 4 cuts (Q20b/c/d, Q26), 6 additions (voice, content enjoyment, FAQs, transformation, seasonality, solo/team), reframes (Q13 conversational, Q22/Q23 combined, Q34 broadened, Q48 warm close)
+    - Online Presence moved to Step 0 with compact link tables (GMB + Yelp added)
+    - Confirmation card shows concierge answers at top of Step 1
+    - Language swap: "intake" -> "consultation" in all user-facing strings
+    - Not-ready page at /not-ready for C5 "No" routing
+    - New components: ConciergeCheckboxOption, ConciergeTextOption, ConciergeReadiness, IntakeConfirmationCard, IntakeLinkTable
+  - Dark mode toggle removed for testing (last commit) -- needs decision to restore or keep light-only
+  - **Pending:** Bas to decide on dark mode, push branch, merge to main
 
-### What's Next
+### VPS Deployment (Completed 2026-03-15)
 
-1. Run PostgreSQL database migrations on VPS
-2. Deploy to production
-3. Manual accessibility testing (200% zoom, screen reader, reduced motion)
-4. Lighthouse performance/accessibility audit
-5. Configure SSL/TLS, backups, monitoring on VPS
-6. Migrate middleware to proxy (Next.js 16 deprecation)
-7. Manual testing of concierge flow end-to-end (all screens, keyboard nav, dark mode)
+- **Domain:** resetmymarketing.com (under registrar review, not yet active)
+- **Port:** 3007
+- **PM2 app name:** the-marketing-reset (fork mode, 250MB memory limit)
+- **Directory:** /var/www/the-marketing-reset
+- **Database:** PostgreSQL user `marketing_reset`, database `marketing_reset`
+- **Admin seeded:** admin@themarketingreset.com
+- **Nginx:** HTTP config in place at /etc/nginx/sites-available/resetmymarketing
+- **SSL:** Not yet configured (waiting on domain approval)
+- **GitHub:** github.com/resetmymarketing/website (branch: main)
+- **SSH keys:** Separate deploy keys on VPS and local dev machine (github.com-resetmymarketing alias)
+- **Package manager:** Switched from npm to pnpm (node-linker=hoisted in .npmrc for compatibility)
+
+### VPS User Isolation (Completed 2026-03-16)
+
+- App runs as dedicated `marketingreset` Linux service account (nologin)
+- PM2 systemd service: `pm2-marketingreset` (auto-restart on reboot)
+- Ecosystem file: `/var/www/the-marketing-reset/ecosystem.config.cjs` (PORT=3007)
+- .env.local locked to chmod 600 (only marketingreset user can read)
+- Subdomain: **https://reset.builtbybas.com** (SSL via certbot)
+- All deploys/builds must run as the service user:
+
+  ```bash
+  sudo -u marketingreset env PATH=/usr/local/bin:/usr/bin:/bin HOME=/var/www/the-marketing-reset bash -c '<command>'
+  ```
+
+### What's Next (updated 2026-04-12 end of Session 15)
+
+**Immediate — top of next session:**
+
+1. **Phase 2b: Next.js 16.1.7 -> 16.2.3 (surgical)** -- patches open GHSA-q4gf-8mx6-v5v3 DoS CVE (O6). DO NOT merge either Dependabot PR as-is; both bundle risky unrelated major version jumps (dev PR proposes TypeScript 6, Vite 8, ESLint 10 -- Figaro-class risk). Instead: locally bump `next` and `eslint-config-next` to `16.2.3` on a dedicated branch, full quality gate run, then stage on VPS at `/tmp/the-marketing-reset-debug/` with manual `next start` on port 3099 before production deploy. Deploy flow proven in Session 15 Phase 2a.
+2. **Push + merge feat/consultation-form-redesign** -- 15 commits already on origin (confirmed via fetch). Visual verification on dev server, then merge to main, deploy via the new SSH-service-user flow.
+
+**Cross-project (discovered in Session 15 portfolio audit, not Marketing Reset's scope but flagged for next session):**
+3. **Figaro crash-loop investigation** -- 85 restarts in 3h, post-rollback instability on `figaro.builtbybas.com`.
+4. **Dispensory auth fix** -- `UntrustedHost` errors hitting real users on `dispensory.builtbybas.com/api/auth/session`. Likely `trustHost: true` or `AUTH_URL` missing. Dispensory also needs the same Next.js CVE patch (runs 16.1.6, one minor behind us).
+5. **Root hygiene cleanup on VPS** -- archive `/root/.ssh/github_allbeautyhairstudio*` (ABHS already uses its own service-user key), identify mystery `/root/.ssh/github_deploy*`, investigate `/root/.ssh/authorized_keys` mtime 2026-04-12 03:27.
+6. **Portfolio ecosystem drift remediation** -- 5 other projects have stripped or missing `ecosystem.config.cjs`. Apply the Marketing Reset Phase 2a pattern to each. Track in `~/.claude/docs/vps-infrastructure.md` Portfolio Drift Audit appendix.
+
+**Backlog (no change from prior handoffs):**
+7. **Set up local marketing_reset DB** -- unblocks E2E login test (30/31 -> 31/31).
+8. **Domain approval** for resetmymarketing.com (registrar review).
+9. **DNS A records + certbot SSL** once domain is active.
+10. **Change default admin password** on first login.
+11. **Manual accessibility testing** (200% zoom, screen reader, reduced motion).
+12. **Lighthouse audit**.
+13. **Middleware -> proxy** migration (Next.js 16 deprecation).
+14. **Full 200-item SECURITY-AUDIT.md sweep** -- file seeded in Session 15, content pending.
 
 ### Blockers
 
-- None
+- Domain resetmymarketing.com under registrar review (cannot configure DNS or SSL until approved)
+- E2E auth test (1/31) fails -- login API hangs on local DB connection. Need local marketing_reset database or connection timeout in db.ts
 
 ### Decisions Made
 
@@ -138,3 +189,12 @@
 | 2026-03-07 | 6       | Public intake form (48 questions, /get-started), public API route, content alignment fixes, button routing. All quality gates passing. |
 | 2026-03-07 | 7       | Contrast boost (AAA compliance), darkened form borders, label-to-input spacing, hero button white-on-white fix, select title attributes for a11y. All quality gates passing. |
 | 2026-03-15 | 8       | Concierge "Get Started" experience (6-screen guided flow with Framer Motion animations), multi-step intake form (6 steps with progress bar), 6 new intake questions (brand messaging, retention, competition, marketing investment). framer-motion dependency added. All quality gates passing. |
+| 2026-03-15 | 9       | VPS deployment. Switched npm to pnpm. Created PM2 ecosystem config, Nginx config, DEPLOY.md. Set up GitHub repo (resetmymarketing/website), SSH keys (local + VPS). Deployed to VPS: cloned, PostgreSQL database created, schema migrated, admin seeded, built, PM2 running on port 3007, Nginx configured. Domain under registrar review. SSL pending. |
+| 2026-03-16 | 10      | VPS security audit: closed UFW port 3003 (analytics proxied by Nginx). Planned user isolation migration: spec + implementation plan for migrating ABHS, Figaro, Marketing Reset, Umami from root PM2 to dedicated no-login Linux service accounts. Ready to execute next session. |
+| 2026-03-16 | 11      | Executed VPS user isolation: migrated 4 apps (Umami, Figaro, Marketing Reset, ABHS) to dedicated nologin service accounts with isolated PM2 + systemd startup. Set up builtbybas.com subdomains (abhs, figaro, reset) with Nginx + SSL. Closed direct app ports. Added default Nginx catchall (444) for bare IP. Updated global docs. |
+| 2026-04-10 | 12      | Karli's first direct Claude Code session. Reviewed v3.0 handoff doc against actual codebase -- found duplication issues and inaccuracies from prior Claude session. Analyzed all 52 questions against deliverable needs. Identified 4 cuts (Q20b, Q20c, Q20d, Q26), 6 new questions (voice, content enjoyment, FAQs, transformation, seasonality, team), and multiple reframes for inclusivity. Created HTML mockup in tmp/. Karli approved all recommendations. No code changes -- planning only. |
+| 2026-04-10 | 13*     | Implementation sessions (unknown count). Implemented all Session 12 approved changes: 7-screen concierge (Other, multi-select, readiness), consultation form rewrite (cuts, additions, reframes, link tables), language swap, not-ready page, new components. Tests updated (83 passing). Dark mode removed for testing. |
+| 2026-04-11 | 14      | Codebase audit. Fixed q34 field name mismatch (validation vs form). Updated Playwright config (Turbopack crash workaround, port fix, webpack fallback). Ran E2E tests (30/31 pass -- 1 blocked by missing local DB). Updated governance files to reflect actual branch state. |
+| 2026-04-12 | 15      | Portfolio quality governance sweep. CLAUDE.md updated (Eight->Twelve Pillars, Data Protection, pnpm corrected, LastStatusReport in session protocol). Dep audit refreshed: 10 vulns (2 HIGH, 8 moderate) including 1 HIGH production Next.js DoS (16.1.7 < 16.2.3). VPS state verified: main @ 1d9db89, 3 commits behind local main, feat branch 15 commits unmerged. Env parity OK. Flagged missing SECURITY-AUDIT.md and rollback runbook. No code changes. |
+| 2026-04-12 | 15 cont.| Started Phase 2a (catch VPS up 3 commits) -- BLOCKED by infra gaps. Discovered: (1) `marketingreset` SSH alias `github.com-resetmymarketing` is referenced in git remote but no keys / `.ssh/config` exist for the service user -- `git pull` fails; (2) deployed `ecosystem.config.cjs` is stripped vs repo (no NODE_ENV, no memory cap, no log paths); (3) cross-project read-only audit revealed portfolio-wide ecosystem drift plus a **leaked GitHub PAT on Colour Parlor's git remote (URGENT, revocation pending)**. Created SECURITY-AUDIT.md and added rollback runbook to DEPLOY.md. O3 (dark mode) closed: light-only confirmed. New issues O4, O5, O6 logged. Updated ~/.claude/docs/vps-infrastructure.md with Portfolio Drift Audit appendix. No VPS writes. |
+| 2026-04-12 | 15 fix  | Fixed O4, O5, and the Colour Parlor PAT leak (F12, F13, F14). Generated per-user ed25519 deploy keys for marketingreset and colourparlor. Added as read-only deploy keys on respective GitHub repos. Wrote ~/.ssh/config aliases. Swapped Colour Parlor remote from HTTPS-with-token to SSH alias. Bas revoked old GitHub deploy keys. Archived legacy root-owned keys to /root/.ssh/archive-2026-04-12/. Executed Phase 2a: stashed stripped ecosystem, ff-pulled main 1d9db89 -> 9ba05e1 (Next 16.1.6 -> 16.1.7 patch + 9 transitive vuln patches + Dependabot), pnpm install --frozen-lockfile, pnpm build, pm2 delete+start with comprehensive ecosystem (NODE_ENV=production, 250M cap, log paths), pm2 save. Smoke test: localhost:3007 and <https://reset.builtbybas.com> both return 200. Last Known-Good updated in DEPLOY.md. |

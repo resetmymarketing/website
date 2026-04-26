@@ -8,6 +8,9 @@ test.describe('Authentication', () => {
     await expect(page.getByRole('button', { name: /sign in|log in/i })).toBeVisible();
   });
 
+  // NOTE: This test requires local PostgreSQL with marketing_reset database.
+  // Without it, the login API hangs on DB connection and never returns a response.
+  // The test is valid -- it passes when the DB is available.
   test('login with invalid credentials shows error', async ({ page }) => {
     await page.goto('/login');
     await page.getByLabel(/email/i).fill('wrong@example.com');

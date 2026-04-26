@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useCallback, type ReactNode } from 'react';
+import { Button } from '@/components/ui/button';
 import { ConciergeProgress } from './concierge-progress';
 
 interface ConciergeShellProps {
   currentScreen: number;
   canAdvance: boolean;
+  showNextButton?: boolean;
   onNext: () => void;
   onBack: () => void;
   children: ReactNode;
@@ -14,6 +16,7 @@ interface ConciergeShellProps {
 export function ConciergeShell({
   currentScreen,
   canAdvance,
+  showNextButton = false,
   onNext,
   onBack,
   children,
@@ -48,25 +51,35 @@ export function ConciergeShell({
   }, [handleKeyDown]);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-white dark:bg-brand-950">
+    <div className="fixed inset-0 z-50 flex flex-col bg-white">
       {/* Progress dots */}
       <div className="flex-none px-4 pt-6 pb-2">
         <ConciergeProgress currentScreen={currentScreen} />
       </div>
 
       {/* Screen content */}
-      <div className="relative flex-1 overflow-hidden">{children}</div>
+      <div className="relative flex-1 overflow-y-auto">{children}</div>
 
-      {/* Back button (only after welcome) */}
+      {/* Navigation footer */}
       {currentScreen > 0 && (
-        <div className="flex-none px-4 pb-6 pt-2">
+        <div className="flex-none flex items-center justify-between px-6 pb-6 pt-3">
           <button
             type="button"
             onClick={onBack}
-            className="text-sm text-warm-500 underline-offset-2 hover:text-warm-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2 dark:text-warm-400 dark:hover:text-warm-200"
+            className="text-sm text-warm-500 underline-offset-2 hover:text-warm-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-500 focus-visible:ring-offset-2:text-warm-200"
           >
             Back
           </button>
+
+          {showNextButton && (
+            <Button
+              onClick={onNext}
+              disabled={!canAdvance}
+              className="px-6"
+            >
+              Next
+            </Button>
+          )}
         </div>
       )}
     </div>

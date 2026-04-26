@@ -18,9 +18,9 @@ const steps = [
   },
   {
     number: '02',
-    title: 'Intake and assessment',
+    title: 'Consultation and assessment',
     description:
-      'If it looks like a good fit, you will complete a detailed intake form. This gives me everything I need to prepare a thorough analysis before our session.',
+      'If it looks like a good fit, you will complete a detailed consultation. This gives me everything I need to prepare a thorough analysis before our session.',
   },
   {
     number: '03',
@@ -127,7 +127,7 @@ export default function HowItWorksPage() {
             {[
               {
                 q: 'How long does the whole process take?',
-                a: 'From intake to deliverables, most clients complete the process within two to three weeks. The session itself is typically 60 to 90 minutes.',
+                a: 'From consultation to deliverables, most clients complete the process within two to three weeks. The session itself is typically 60 to 90 minutes.',
               },
               {
                 q: 'Is this an ongoing service?',
@@ -139,7 +139,7 @@ export default function HowItWorksPage() {
               },
               {
                 q: 'Do I need to prepare anything?',
-                a: 'Just the intake form. It takes about 30 to 45 minutes and covers everything from your business basics to your current marketing efforts. The more honest you are, the better the output.',
+                a: 'Just the consultation. It takes about 30 to 45 minutes and covers everything from your business basics to your current marketing efforts. The more honest you are, the better the output.',
               },
             ].map((faq, i) => (
               <div key={i} className="py-6 first:pt-0 last:pb-0">

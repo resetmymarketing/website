@@ -10,7 +10,7 @@ export function IntakeProgressBar({ currentStep }: IntakeProgressBarProps) {
   return (
     <div className="mb-8">
       {/* Mobile: simple text */}
-      <p className="text-sm font-medium text-brand-600 dark:text-brand-300 sm:hidden">
+      <p className="text-sm font-medium text-brand-600 sm:hidden">
         Step {currentStep + 1} of {intakeSteps.length}: {intakeSteps[currentStep].label}
       </p>
 
@@ -32,16 +32,16 @@ export function IntakeProgressBar({ currentStep }: IntakeProgressBarProps) {
                     ? i === currentStep
                       ? 'bg-sage-500'
                       : 'bg-brand-400'
-                    : 'bg-brand-100 dark:bg-brand-800'
+                    : 'bg-brand-100'
                 }`}
               />
               <p
                 className={`mt-1.5 text-xs transition-colors ${
                   i === currentStep
-                    ? 'font-medium text-sage-600 dark:text-sage-400'
+                    ? 'font-medium text-sage-600'
                     : i < currentStep
-                      ? 'text-brand-500 dark:text-brand-400'
-                      : 'text-warm-400 dark:text-warm-600'
+                      ? 'text-brand-500'
+                      : 'text-warm-400'
                 }`}
               >
                 {step.shortLabel}

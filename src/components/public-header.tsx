@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ButtonLink } from '@/components/ui/button-link';
-import { ThemeToggle } from '@/components/theme-toggle';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -40,9 +39,6 @@ export function PublicHeader() {
                 </Link>
               </li>
             ))}
-            <li>
-              <ThemeToggle />
-            </li>
             <li className="ml-1">
               <ButtonLink href="/get-started" size="sm">
                 Get Started

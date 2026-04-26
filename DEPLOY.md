@@ -155,6 +155,81 @@ Should return `200`.
 
 ---
 
+## Rollback Runbook (Recovery)
+
+> **Added 2026-04-12** (Session 15) in response to Figaro Session 16 incident. A rollback performed without a documented runbook is slow and error-prone under pressure. Use this.
+
+### Last Known-Good Commit
+
+- **2026-04-12 (after Phase 2a deploy):** `9ba05e1` -- chore: add Dependabot for automated dependency security monitoring. Currently deployed on VPS via marketingreset user + SSH deploy key, serving production on <https://reset.builtbybas.com>. NODE_ENV=production, 250M memory cap, comprehensive ecosystem config. Next.js 16.1.7.
+- **Previous LKG (pre-2026-04-12):** `1d9db89` -- Merge remote main branch. Deployed via root user + legacy deploy key (now archived).
+- Update this line after every successful production deploy.
+
+### When to Roll Back
+
+- 5xx errors spiking after deploy
+- PM2 restart-looping (`pm2 show the-marketing-reset` shows rising restart count)
+- Build succeeded but runtime crashes (check `pm2 logs` for stack traces; `next start` wrapped by PM2 surfaces as generic `ELIFECYCLE`)
+- Any regression visible on smoke test after deploy
+
+**Rule:** rollback first, debug second. The site goes back up, then we investigate.
+
+### Rollback Command Sequence
+
+All commands run as the `marketingreset` service user:
+
+```bash
+ssh -i ~/.ssh/orcachild_vps -p 2222 orcachild@72.62.200.30
+
+sudo -u marketingreset env PATH=/usr/local/bin:/usr/bin:/bin HOME=/var/www/the-marketing-reset bash -c '
+  cd /var/www/the-marketing-reset && \
+  git log --oneline -5 && \
+  git reset --hard <LAST_KNOWN_GOOD_COMMIT> && \
+  pnpm install --frozen-lockfile && \
+  pnpm build && \
+  pm2 restart the-marketing-reset
+'
+```
+
+Replace `<LAST_KNOWN_GOOD_COMMIT>` with the hash from the section above.
+
+### Post-Rollback Verification
+
+```bash
+# PM2 status (should show online and uptime growing)
+sudo -u marketingreset env HOME=/var/www/the-marketing-reset pm2 status
+
+# Local health probe
+curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3007
+
+# Public endpoint
+curl -s -o /dev/null -w "%{http_code}\n" https://reset.builtbybas.com
+
+# Tail logs for clean startup (no errors in last 20 lines)
+sudo -u marketingreset env HOME=/var/www/the-marketing-reset pm2 logs the-marketing-reset --lines 20 --nostream
+```
+
+Expected: both curls return `200`, PM2 shows `online`, uptime increasing, no errors in recent logs.
+
+### Restoring `.env.local`
+
+The `.env.local` file on the VPS is chmod 600 to `marketingreset`. If it is ever lost:
+
+- Keys required (per `.env.example`): `DATABASE_URL`, `NODE_ENV`, `NEXT_PUBLIC_APP_URL`, `SESSION_SECRET`
+- `DATABASE_URL` format: `postgresql://marketing_reset:<password>@localhost:5432/marketing_reset`
+- DB password lives only in the existing `.env.local` -- if lost, reset via `ALTER USER marketing_reset WITH PASSWORD '<new>';` as postgres superuser and update `.env.local`
+- `SESSION_SECRET` must be regenerated with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` -- regenerating invalidates all existing sessions (forces re-login, acceptable)
+
+After restoring `.env.local`, restart: `sudo -u marketingreset pm2 restart the-marketing-reset`.
+
+### After Any Successful Deploy
+
+1. Smoke test live URL
+2. Update "Last Known-Good Commit" section above with the new hash
+3. Commit the DEPLOY.md change with a message like `chore: update last-known-good commit to <hash>`
+
+---
+
 ## Troubleshooting
 
 ### App not starting

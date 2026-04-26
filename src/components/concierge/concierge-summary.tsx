@@ -15,18 +15,18 @@ export function ConciergeSummary({ answers, onContinue }: ConciergeSummaryProps)
 
   return (
     <div className="mx-auto w-full max-w-2xl text-center">
-      <h2 className="text-3xl font-bold text-brand-800 dark:text-brand-100 sm:text-4xl">
+      <h2 className="text-3xl font-bold text-brand-800 sm:text-4xl">
         {summaryScreen.heading}
       </h2>
 
       <p
         aria-live="polite"
-        className="mt-6 text-lg leading-relaxed text-warm-700 dark:text-warm-300"
+        className="mt-6 text-lg leading-relaxed text-warm-700"
       >
         {summary}
       </p>
 
-      <p className="mt-6 text-sm text-warm-500 dark:text-warm-400">
+      <p className="mt-6 text-sm text-warm-500">
         {summaryScreen.subtext}
       </p>
 
