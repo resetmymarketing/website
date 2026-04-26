@@ -2,27 +2,27 @@
 
 > Quick-glance view of where the project stands. Updated every session.
 
-## Overall Grade: A (9.0/10)
+## Overall Grade: A (9.1/10)
 
-**Status:** Consultation form redesign and Next.js 16.2.3 CVE patch SHIPPED to production (2026-04-25, S16). Production at `https://reset.builtbybas.com` runs Next 16.2.3, Ready in 231ms, 0 errors. Form is live for Karli. Pre-redesign cleanup complete (governance + docs committed, .gitignore tightened, branches in sync with origin). JawDrop public-site rebuild is the next active initiative — spec ready, branch not yet started.
+**Status:** JawDrop public-site rebuild Slices 1-2 complete locally on `feat/jawdrop-rebrand-2026` (S17-S18). Slice 1 = design system foundation (Lemonade palette + Fraunces/Inter + 3 brand components). Slice 2 = Home Chapter 01 "The Noise" (5 motion components, full home rewrite, NoiseToSignal auto-play sequence). Production at `https://reset.builtbybas.com` unchanged on `main @ 0bd26d1` (Next 16.2.3, consultation form live, CVE patched). Branch never pushed — staging review and remaining 6 slices (About, How It Works, Contact, Get Started reskin, Not Ready, Global polish) come before deploy.
 
 ## Health Dashboard
 
 | Dimension | Score | Grade | Change | Notes |
 |-----------|-------|-------|--------|-------|
-| Quality Gates | 9.5 | A+ | +0.5 | type-check 0, lint 0/0, test 83/83, build 28 routes (verified S16) |
-| Code Quality | 9.0 | A | -- | Strict TS, clean patterns, no any |
-| Security | 9.5 | A+ | +0.5 | CVE GHSA-q4gf-8mx6-v5v3 patched (Next 16.2.3 in prod). Rate limiting, CSRF, auth, Zod. |
-| Accessibility | 8.5 | A- | -- | E2E verified (landmarks, headings, labels, lang) |
-| Performance | 8.0 | B+ | -- | SSR, static pages, optimized fonts. Ready in 231ms on Next 16.2.3. |
-| Inclusivity | 8.0 | B+ | -- | Inclusive language, no assumptions |
+| Quality Gates | 9.5 | A+ | -- | type 0, lint 0/0, **test 134/134**, build 29 routes (verified S18) |
+| Code Quality | 9.0 | A | -- | Strict TS, clean patterns, no any. New motion components follow per-element-component pattern to avoid hooks-in-loop. |
+| Security | 9.5 | A+ | -- | CVE patched in prod. Rate limiting, CSRF, auth, Zod. Dev-only CSP `'unsafe-eval'` allowance added (production CSP unchanged). |
+| Accessibility | 8.5 | A- | -- | New motion components honor `prefers-reduced-motion` (chips not rendered, headlines at full opacity). aria-hidden on decorative SVGs. |
+| Performance | 8.0 | B+ | -- | SSR, static pages, optimized fonts. Build 2.6s. NoiseToSignal uses `useInView` (no scroll listeners on idle). |
+| Inclusivity | 8.0 | B+ | -- | Inclusive copy in Karli's home content (gender-neutral, multi-industry). |
 | Bias | 8.0 | B+ | -- | Non-bias pillar enforced |
-| Test Coverage | 8.5 | A- | -- | 83 unit + 31 E2E (30 passing) |
-| Design Continuity | 9.5 | A+ | -- | EcoTrust palette live; JawDrop spec ready for next-session rebuild |
+| Test Coverage | 8.5 | A- | +0.5 | **134 unit** (was 83) + 31 E2E (30 passing). 51 new tests across copy module + 6 motion components. |
+| Design Continuity | 9.5 | A+ | -- | Lemonade palette + EcoTrust coexist on rebrand branch (additive); per-chapter migration in slices 3-7. Spec faithfully executed for Chapters 0 + 1. |
 | Tech Debt | 8.5 | A- | -- | Minor: middleware deprecation (TD1) |
-| Dependencies | 9.0 | A | +2.0 | High prod CVE patched. 7 dev-only mods remain (vite, esbuild, hono CLI). |
-| Documentation | 9.5 | A+ | +0.5 | Governance + specs/plans committed. JawDrop spec in repo. |
-| **Overall** | **9.0** | **A** | **+0.3** | **Form live, CVE patched, ready for redesign phase** |
+| Dependencies | 9.0 | A | -- | High prod CVE patched. 7 dev-only mods remain. **No new deps added in S17-18** (Framer-only motion). |
+| Documentation | 9.5 | A+ | -- | Slice 1+2 plans + design spec in repo. HANDOFF current. |
+| **Overall** | **9.1** | **A** | **+0.1** | **Slices 1-2 complete locally; production unchanged** |
 
 **Scoring:** A+ (9.5+), A (9.0+), A- (8.5+), B+ (8.0+), B (7.0+), C (6.0+), D (5.0+), F (<5.0)
 
@@ -30,21 +30,21 @@
 
 | Metric | Value |
 |--------|-------|
-| Source files | ~60 |
-| Lines of code | ~5100 |
-| Components | 22 (shadcn + custom + concierge multi-select/text-option/readiness + intake confirmation-card/link-table) |
-| API routes | 14 (auth, clients, contact, intake, dashboard) |
-| Pages / views | 15 (home, about, how-it-works, contact, get-started, not-ready, login, dashboard, pipeline, clients, client detail, intake, 404, error) |
-| Production dependencies | 14 |
-| Dev dependencies | 17 |
-| Unit test cases | 83 (verified S16 on Next 16.2.3) |
-| E2E test cases | 31 (30 passing, 1 blocked by local DB) |
+| Source files | ~75 (gained ~15 from S17-18 motion + brand components, copy module, smoke page) |
+| Lines of code | ~6400 |
+| Components | 30 (shadcn + custom + 8 rebrand: Highlight, SunBadge, StripeDivider, StrikethroughCycler, SunArc, NoiseToSignal, AudienceTile, AudienceMosaic) |
+| API routes | 14 (auth, clients, contact, intake, dashboard — unchanged) |
+| Pages / views | 16 (added /dev-slice-1-smoke verification page) |
+| Production dependencies | 14 (unchanged — no new deps in S17-18) |
+| Dev dependencies | 17 (unchanged) |
+| Unit test cases | **134** (was 83 in S16; +51 across copy module + 6 motion components via renderToStaticMarkup) |
+| E2E test cases | 31 (30 passing, 1 blocked by local DB — unchanged) |
 
 ## Production Readiness Checklist
 
 | # | Requirement | Status |
 |---|-------------|--------|
-| 1 | All quality gates pass | PASS (S16: type 0, lint 0/0, test 83/83, build 28) |
+| 1 | All quality gates pass | PASS (S18: type 0, lint 0/0, test 134/134, build 29) |
 | 2 | Auth system functional | PASS |
 | 3 | Database connected and migrated | PASS (deployed S9, schema migrated, admin seeded) |
 | 4 | Public site pages complete | PASS (consultation form live S16) |
@@ -57,7 +57,7 @@
 | 11 | Backups configured | PENDING (weekly VPS snapshots via Hostinger) |
 | 12 | Monitoring configured | PENDING (PM2 process monitoring active, no uptime checks) |
 
-**Production:** Live at `https://reset.builtbybas.com` on `main @ 0bd26d1` (Next.js 16.2.3, consultation form live, CVE patched). Working tree clean locally. Pending: domain approval (resetmymarketing.com), default admin password change, Lighthouse audits, manual a11y, middleware->proxy migration.
+**Production:** Live at `https://reset.builtbybas.com` on `main @ 0bd26d1` (Next.js 16.2.3, consultation form live, CVE patched, **unchanged from S16**). Local rebrand work in progress on `feat/jawdrop-rebrand-2026 @ 2db6180` (never pushed). Pending: Slices 3-8, domain approval (resetmymarketing.com), default admin password change, Lighthouse audits, manual a11y, middleware->proxy migration.
 
 ## Open Issues: 4
 
