@@ -68,3 +68,8 @@ tmp/
 # Karli's working mockup -- kept local, not served by Next.js
 public/mockup.html
 
+# Internal planning/brainstorming -- local only
+.claude/
+docs/superpowers/
+questions.md
+
