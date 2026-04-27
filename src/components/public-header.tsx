@@ -23,7 +23,7 @@ export function PublicHeader() {
           href="/"
           className="text-xl font-bold tracking-tight text-brand-800"
         >
-          The Marketing Reset
+          Reset My Marketing
         </Link>
 
         {/* Desktop nav */}

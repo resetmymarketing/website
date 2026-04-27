@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Public Site', () => {
   test('home page loads with correct title and hero', async ({ page }) => {
     await page.goto('/');
-    await expect(page).toHaveTitle(/The Marketing Reset/);
+    await expect(page).toHaveTitle(/Reset My Marketing/);
     await expect(page.locator('h1')).toBeVisible();
   });
 

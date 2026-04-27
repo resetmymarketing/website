@@ -1,6 +1,6 @@
-# The Marketing Reset -- Security Audit
+# Reset My Marketing -- Security Audit
 
-> **Project:** The Marketing Reset
+> **Project:** Reset My Marketing
 > **Checklist Source:** `~/.claude/docs/penetration-test-checklist.md` (20 categories, 200+ items)
 > **Last Full Sweep:** Not yet executed -- baseline file created 2026-04-12
 > **Tester:** Claude + Bas

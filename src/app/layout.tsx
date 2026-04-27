@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'The Marketing Reset',
-    template: '%s | The Marketing Reset',
+    default: 'Reset My Marketing',
+    template: '%s | Reset My Marketing',
   },
   description:
     'A one-time strategic marketing clarity service for service-based businesses. Get honest about what is and is not working, and walk away with a clearer direction.',

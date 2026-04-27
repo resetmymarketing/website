@@ -1,4 +1,4 @@
-# The Marketing Reset - Session Handoff
+# Reset My Marketing - Session Handoff
 
 > Updated at the end of every session. This is how the AI picks up where it left off.
 
@@ -93,6 +93,18 @@
 - **Branch:** `feat/jawdrop-rebrand-2026` (off main `f401460`, never pushed). Tip: `ca134d5`.
 - **JawDrop rebrand Slices 1-2 complete** — design system foundation + Home Chapter 01. Slice 2 included a meaningful iteration cycle on the NoiseToSignal moment (4 mechanic versions before landing the auto-play sequence). All quality gates green: type 0 / lint 0/0 / **test 134/134** / build 29 routes.
 - **Production unchanged** at `https://reset.builtbybas.com` on `0bd26d1` (Next.js 16.2.3, consultation form redesign live, CVE GHSA-q4gf-8mx6-v5v3 patched). The rebrand branch will not deploy until all 8 slices pass staging review.
+- **Session 19 (2026-04-26, uncommitted on `feat/jawdrop-rebrand-2026`):** Multi-thread session covering visual trim, a critical dev infra fix, the brand rename, and editorial imagery.
+  - **New brand trim components:** `<AwningBand>` (Variant C: 24px stripes / 18px band / 10px scallop, white + Pacific) at top of hero; `<ColorBand>` (8px lemonade) between hero and Who section. Both with tests. Static mockup at `tmp/awning-preview.html`.
+  - **Dev cross-origin fix:** added `allowedDevOrigins: ['192.168.1.150']` to `next.config.ts`. Resolved a critical issue where the Mac (and any non-localhost origin) was rendering only SSR fallback content — the cross-origin block of HMR/RSC stopped client-side hydration. See "Dev gotcha" below.
+  - **Phase 1 rename "The Marketing Reset" → "Reset My Marketing":** 16 user-facing string replacements across 8 files (`src/app/layout.tsx`, `src/components/public-header.tsx`, `src/components/public-footer.tsx`, `src/lib/concierge-content.ts`, `src/app/(public)/about/page.tsx`, `src/app/(public)/how-it-works/page.tsx`, `src/app/(public)/not-ready/page.tsx`, `src/app/(dashboard)/dashboard/page.tsx`). Phase 2 (tests, package.json, ecosystem.config, scripts, governance docs, repo dirname) **deliberately deferred** — those would break the test suite which still asserts the old name.
+  - **Editorial imagery — 9 photos wired** matching Karli's brand direction (A. editorial documentary + D. real-people portraiture, soft natural light). Karli portrait → About hero (replaces `bookshelf-nook.jpg`). 8 Audience Mosaic tiles each with `imageSrc` + `imageAlt` in `AUDIENCE_MOSAIC_COPY` (one per service-business type, matching the existing testimonial vibe). 1 owner-at-work shot → How It Works hero (replaces `cozy-workspace.jpg`). All Audience Mosaic + How-It-Works photos sourced from free-tier Unsplash. `public/images/CREDITS.md` written with photographer + URL + license per file. Casting note: lineup currently skews female (Karli, salon stylist + client, bookkeeper-in-an-earlier-version-was-replaced-by-male, two female coaches in conversation) — Bas approved the cast as-is. Two tiles (Florists, Spa) are scene-only without people in frame; Bas accepted those too. Legacy Pexels images (`bookshelf-nook`, `cozy-workspace`, `collaboration`, `notebook-pen`, `strategy-session`) remain on disk but are no longer referenced in source — flagged in CREDITS.md for archival decision.
+- **Dev gotcha (Next.js 16) — captured 2026-04-26:** Accessing the dev server from a non-localhost origin (LAN IP, mDNS hostname, etc.) triggers cross-origin blocks on HMR/RSC/fast-refresh. Symptom on remote devices (Mac on the LAN, both Chrome and Safari): only SSR-rendered static content visible, animations never fire, `'use client'` components don't hydrate, the get-started concierge appears blank. Fix: add the origin to `allowedDevOrigins` in `next.config.ts` and restart the dev server (config changes don't hot-reload). Currently allows `192.168.1.150`. Per Next.js 16 docs, wildcards are supported for hostname subdomains (`*.local-origin.dev`) but NOT for IP octets — so each device IP needs an explicit entry, OR use the Windows PC's mDNS `<hostname>.local`.
+- **Open items queued for next session:**
+  - Phase 2 of rename (tests, package.json, ecosystem.config, scripts, governance docs, repo dirname). E2E test suite will fail until then because assertion strings still reference the old name.
+  - Karli sign-off on the brand name "Reset My Marketing" (per project convention, brand naming is the client's call).
+  - Run quality gates (`pnpm type-check`, `pnpm lint`, `pnpm build`) — held off this session per safety rules; confirm test DB separation before `pnpm test`.
+  - Decide fate of legacy Pexels images (archive vs delete vs keep on disk).
+  - Decide on staging deploy / push of `feat/jawdrop-rebrand-2026`.
 
 ### JawDrop Rebrand Status
 

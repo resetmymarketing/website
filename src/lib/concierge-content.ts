@@ -1,9 +1,9 @@
 import type { ConciergeScreenConfig, ConciergeAnswers } from './concierge-types';
 
 export const welcomeScreen = {
-  eyebrow: 'The Marketing Reset',
+  eyebrow: 'Reset My Marketing',
   heading: 'Before we dive in, let me learn a little about you.',
-  body: 'I am Karli, and I created The Marketing Reset for service-based business owners who are tired of guessing with their marketing. Over the next few screens, I will ask you a few quick questions. Your answers help me understand where you are before you start your consultation. Everything you share stays between us.',
+  body: 'I am Karli, and I created Reset My Marketing for service-based business owners who are tired of guessing with their marketing. Over the next few screens, I will ask you a few quick questions. Your answers help me understand where you are before you start your consultation. Everything you share stays between us.',
   cta: "Let's get started",
 };
 

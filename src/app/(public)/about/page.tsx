@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Meet Karli Rosario, the strategist behind The Marketing Reset. Learn why this service exists and who it is for.',
+    'Meet Karli Rosario, the strategist behind Reset My Marketing. Learn why this service exists and who it is for.',
 };
 
 export default function AboutPage() {
@@ -16,7 +16,7 @@ export default function AboutPage() {
       <section className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-6xl">
           <p className="text-sm font-medium uppercase tracking-widest text-brand-700">
-            About The Marketing Reset
+            About Reset My Marketing
           </p>
           <h1 className="mt-3 max-w-4xl text-4xl font-bold leading-tight text-brand-800 sm:text-5xl lg:text-6xl">
             Built by someone who gets it.
@@ -29,8 +29,8 @@ export default function AboutPage() {
       <section className="lg:grid lg:grid-cols-5">
         <div className="relative aspect-[3/4] lg:col-span-2 lg:aspect-auto">
           <Image
-            src="/images/bookshelf-nook.jpg"
-            alt="A cozy reading nook with a full bookshelf, plants on the windowsill, and warm cushions"
+            src="/images/karli.jpg"
+            alt="Portrait of Karli Rosario, founder of Reset My Marketing."
             fill
             className="object-cover"
             sizes="(min-width: 1024px) 40vw, 100vw"
@@ -50,7 +50,7 @@ export default function AboutPage() {
                 where you actually are, not where some template assumes you should be.
               </p>
               <p>
-                That is what The Marketing Reset does. One focused engagement. No ongoing
+                That is what Reset My Marketing does. One focused engagement. No ongoing
                 retainer. No fluff. Just clarity.
               </p>
             </div>

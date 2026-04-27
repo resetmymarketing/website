@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'How It Works',
   description:
-    'Learn how The Marketing Reset works: from initial contact to your strategic marketing clarity session and deliverables.',
+    'Learn how Reset My Marketing works: from initial contact to your strategic marketing clarity session and deliverables.',
 };
 
 const steps = [
@@ -42,8 +42,8 @@ export default function HowItWorksPage() {
       {/* Hero — image background with text overlay at bottom */}
       <section className="relative min-h-[50vh] overflow-hidden lg:min-h-[60vh]">
         <Image
-          src="/images/cozy-workspace.jpg"
-          alt="A minimal workspace with a laptop, planner, and coffee cup on a wooden desk"
+          src="/images/howitworks-owner.jpg"
+          alt="A service-business owner working thoughtfully at a studio workspace with notes and a laptop."
           fill
           className="object-cover object-top"
           priority
@@ -131,11 +131,11 @@ export default function HowItWorksPage() {
               },
               {
                 q: 'Is this an ongoing service?',
-                a: 'No. The Marketing Reset is a one-time engagement. You get what you need and move forward on your own. If you want to check in later, that option is available, but there is no subscription or retainer.',
+                a: 'No. Reset My Marketing is a one-time engagement. You get what you need and move forward on your own. If you want to check in later, that option is available, but there is no subscription or retainer.',
               },
               {
                 q: 'What if I am not sure this is what I need?',
-                a: 'Start with the contact form. That initial conversation is free and no-pressure. If The Marketing Reset is not the right fit, I will tell you.',
+                a: 'Start with the contact form. That initial conversation is free and no-pressure. If Reset My Marketing is not the right fit, I will tell you.',
               },
               {
                 q: 'Do I need to prepare anything?',

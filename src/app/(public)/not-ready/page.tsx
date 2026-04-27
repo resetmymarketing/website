@@ -3,7 +3,7 @@ import { ButtonLink } from '@/components/ui/button-link';
 
 export const metadata: Metadata = {
   title: 'Not Ready Yet -- And That Is Okay',
-  description: 'The Marketing Reset works best when you are ready to implement. Come back when you are certain.',
+  description: 'Reset My Marketing works best when you are ready to implement. Come back when you are certain.',
 };
 
 export default function NotReadyPage() {
@@ -21,7 +21,7 @@ export default function NotReadyPage() {
         </h1>
 
         <p className="mt-4 text-warm-800 leading-relaxed">
-          Thank you for being honest with yourself. The Marketing Reset works best when you are truly ready to implement what we build together. There is no rush and no pressure.
+          Thank you for being honest with yourself. Reset My Marketing works best when you are truly ready to implement what we build together. There is no rush and no pressure.
         </p>
 
         <div className="mt-8 rounded-xl bg-brand-50 p-6 text-left">

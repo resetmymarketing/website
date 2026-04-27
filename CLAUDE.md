@@ -1,10 +1,10 @@
-# The Marketing Reset - Project Instructions
+# Reset My Marketing - Project Instructions
 
 > This file is the AI's project guide. Read this first every session.
 
 ## Project Overview
 
-**Name:** The Marketing Reset
+**Name:** Reset My Marketing
 **Type:** Unified web app (public marketing site + operations dashboard)
 **Client:** Karli Rosario
 **Purpose:** A one-time strategic marketing clarity service for service-based businesses

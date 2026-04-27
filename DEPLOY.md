@@ -1,4 +1,4 @@
-# The Marketing Reset - VPS Deployment Guide
+# Reset My Marketing - VPS Deployment Guide
 
 > Domain: resetmymarketing.com
 > Port: 3007

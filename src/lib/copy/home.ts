@@ -77,14 +77,54 @@ export const AUDIENCE_MOSAIC_COPY = {
   eyebrow: 'You’re in good company',
   headline: 'Built for the businesses people actually love.',
   tiles: [
-    { label: 'Salons', testimonial: 'Stylists who care about the chair, not the algorithm.' },
-    { label: 'Bakeries', testimonial: 'Real flour, real ovens, real customers.' },
-    { label: 'Florists', testimonial: 'You arrange beauty for a living. Marketing should reflect that.' },
-    { label: 'Spas & Wellness', testimonial: 'Calm spaces deserve calm marketing.' },
-    { label: 'Tattoo Studios', testimonial: 'Your portfolio speaks. Your strategy should match.' },
-    { label: 'Coffee Shops', testimonial: 'The third place. Marketing that respects it.' },
-    { label: 'Bookkeepers', testimonial: 'Trust is the product. Show it that way.' },
-    { label: 'Coaches & Consultants', testimonial: 'Your work changes lives. Your marketing can too.' },
+    {
+      label: 'Salons',
+      testimonial: 'Stylists who care about the chair, not the algorithm.',
+      imageSrc: '/images/audience-salons.jpg',
+      imageAlt: 'Stylist cutting a client’s hair with scissors in a salon.',
+    },
+    {
+      label: 'Bakeries',
+      testimonial: 'Real flour, real ovens, real customers.',
+      imageSrc: '/images/audience-bakeries.jpg',
+      imageAlt: 'Baker in an apron arranging fresh bread loaves on a tray.',
+    },
+    {
+      label: 'Florists',
+      testimonial: 'You arrange beauty for a living. Marketing should reflect that.',
+      imageSrc: '/images/audience-florists.jpg',
+      imageAlt: 'Wooden shelf displaying flowers and potted plants in a flower shop.',
+    },
+    {
+      label: 'Spas & Wellness',
+      testimonial: 'Calm spaces deserve calm marketing.',
+      imageSrc: '/images/audience-spa-wellness.jpg',
+      imageAlt: 'Close-up of feet resting on a blue towel during a spa treatment.',
+    },
+    {
+      label: 'Tattoo Studios',
+      testimonial: 'Your portfolio speaks. Your strategy should match.',
+      imageSrc: '/images/audience-tattoo.jpg',
+      imageAlt: 'Tattoo artist concentrating while applying ink to a client’s arm.',
+    },
+    {
+      label: 'Coffee Shops',
+      testimonial: 'The third place. Marketing that respects it.',
+      imageSrc: '/images/audience-coffee.jpg',
+      imageAlt: 'Barista operating an espresso machine.',
+    },
+    {
+      label: 'Bookkeepers',
+      testimonial: 'Trust is the product. Show it that way.',
+      imageSrc: '/images/audience-bookkeeper.jpg',
+      imageAlt: 'Person writing in a notebook at a desk with a laptop.',
+    },
+    {
+      label: 'Coaches & Consultants',
+      testimonial: 'Your work changes lives. Your marketing can too.',
+      imageSrc: '/images/audience-coaches.jpg',
+      imageAlt: 'Two people sitting facing each other in conversation.',
+    },
   ],
 } as const;
 

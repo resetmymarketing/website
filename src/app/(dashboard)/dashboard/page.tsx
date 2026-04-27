@@ -109,7 +109,7 @@ export default async function DashboardPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold text-brand-800">Overview</h1>
-      <p className="mt-1 text-warm-500">Welcome to The Marketing Reset operations dashboard.</p>
+      <p className="mt-1 text-warm-500">Welcome to the Reset My Marketing operations dashboard.</p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (

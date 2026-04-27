@@ -1,4 +1,4 @@
-# The Marketing Reset - Audit & Issues Tracker
+# Reset My Marketing - Audit & Issues Tracker
 
 > Living record of project quality. Updated whenever issues are found or fixed.
 

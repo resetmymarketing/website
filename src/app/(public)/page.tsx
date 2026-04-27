@@ -3,6 +3,8 @@ import { ArrowRight } from 'lucide-react';
 import { Highlight } from '@/components/motion/Highlight';
 import { SunBadge } from '@/components/brand/SunBadge';
 import { StripeDivider } from '@/components/brand/StripeDivider';
+import { AwningBand } from '@/components/brand/AwningBand';
+import { ColorBand } from '@/components/brand/ColorBand';
 import { StrikethroughCycler } from '@/components/motion/StrikethroughCycler';
 import { SunArc } from '@/components/motion/SunArc';
 import { NoiseToSignal } from '@/components/motion/NoiseToSignal';
@@ -36,9 +38,11 @@ export default function HomePage() {
       <SunArc size={140} />
 
       {/* === Section 1: Hero (Chapter 01 — "The Noise") === */}
-      <section className="relative overflow-hidden bg-pacific-500 px-4 pt-4 pb-10 sm:px-6 lg:px-8 lg:pt-8 lg:pb-12">
-        <StripeDivider color="lemonade" className="mb-10" />
-        <div className="relative z-10 mx-auto max-w-6xl">
+      <section className="relative overflow-hidden bg-pacific-500">
+        <AwningBand color="pacific" className="relative z-20" />
+        <div className="px-4 pt-4 pb-10 sm:px-6 lg:px-8 lg:pt-8 lg:pb-12">
+          <StripeDivider color="lemonade" className="mb-10" />
+          <div className="relative z-10 mx-auto max-w-6xl">
           <p
             className="text-xs font-semibold uppercase tracking-widest text-lemonade-300"
             style={{ fontFamily: 'var(--font-inter)' }}
@@ -79,11 +83,15 @@ export default function HomePage() {
               {HERO_COPY.ctaSecondary.label}
             </ButtonLink>
           </div>
+          </div>
         </div>
         <div className="pointer-events-none absolute -top-12 -right-12 sm:-top-20 sm:-right-20">
           <SunBadge size={260} />
         </div>
       </section>
+
+      {/* Lemonade trim between hero and Oat */}
+      <ColorBand color="lemonade" height={8} />
 
       {/* === Section 2: Who this is for (Oat band) === */}
       <section className="relative z-10 isolate bg-oat-200 px-4 pt-16 pb-[20vh] sm:px-6 lg:px-8 lg:pt-24">

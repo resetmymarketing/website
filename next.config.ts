@@ -10,6 +10,7 @@ const scriptSrc = isDev
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ['pg', 'bcryptjs'],
+  allowedDevOrigins: ['192.168.1.150'],
   async headers() {
     return [
       {

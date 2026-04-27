@@ -1,4 +1,4 @@
-# The Marketing Reset - Project Health
+# Reset My Marketing - Project Health
 
 > Quick-glance view of where the project stands. Updated every session.
 

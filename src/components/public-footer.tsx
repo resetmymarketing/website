@@ -9,7 +9,7 @@ export function PublicFooter() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {/* Brand */}
           <div>
-            <p className="text-lg font-bold text-brand-800">The Marketing Reset</p>
+            <p className="text-lg font-bold text-brand-800">Reset My Marketing</p>
             <p className="mt-2 text-sm text-warm-800">
               Strategic marketing clarity for service-based businesses. One session. Real direction.
             </p>
@@ -57,7 +57,7 @@ export function PublicFooter() {
         </div>
 
         <div className="mt-10 border-t border-border pt-6 text-center text-sm text-warm-700">
-          <p>&copy; {currentYear} The Marketing Reset. All rights reserved.</p>
+          <p>&copy; {currentYear} Reset My Marketing. All rights reserved.</p>
         </div>
       </div>
     </footer>
