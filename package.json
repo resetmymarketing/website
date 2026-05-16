@@ -31,7 +31,7 @@
     "framer-motion": "^12.38.0",
     "lucide-react": "^0.577.0",
     "marked": "^17.0.5",
-    "next": "16.2.3",
+    "next": "16.2.6",
     "pg": "^8.20.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -55,12 +55,18 @@
     "@vitest/coverage-v8": "^4.1.2",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9.39.4",
-    "eslint-config-next": "16.2.3",
+    "eslint-config-next": "16.2.6",
     "jsdom": "^27.4.0",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.2.2",
     "typescript": "^5.9.3",
     "vite": "6.4.1",
     "vitest": "^4.0.18"
+  },
+  "pnpm": {
+    "overrides": {
+      "fast-uri": ">=3.1.2",
+      "hono": ">=4.12.18"
+    }
   }
 }
